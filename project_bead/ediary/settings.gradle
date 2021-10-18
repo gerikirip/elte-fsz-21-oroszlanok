@@ -1,0 +1,4 @@
+rootProject.name = 'ediary'
+
+include 'ediary-domain'
+include 'ediary-application'
