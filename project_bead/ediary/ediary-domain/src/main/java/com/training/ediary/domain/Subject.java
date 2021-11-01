@@ -10,4 +10,16 @@ public class Subject {
 	@GeneratedValue
 	private int subjectId;
 	private String subjectName;
+	
+	public String getSubjectName() {
+		return subjectName;
+	}
+	
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	
+	public int getSubjectId() {
+		return subjectId;
+	}
 }

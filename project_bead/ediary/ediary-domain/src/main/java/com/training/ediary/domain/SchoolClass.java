@@ -1,7 +1,5 @@
 package com.training.ediary.domain;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +13,15 @@ public class SchoolClass {
 	
 	private String className;
 	
-	@ManyToOne
-	private Teacher headTeacher;
-	
+	public int getClassId() {
+		return classId;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
 }

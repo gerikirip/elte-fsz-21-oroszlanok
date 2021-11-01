@@ -15,6 +15,34 @@ public class Teaching {
 	@OneToOne
 	private Teacher teacher;
 	
+	public int getTeachingId() {
+		return teachingId;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public SchoolYear getSchoolYear() {
+		return schoolYear;
+	}
+
+	public void setSchoolYear(SchoolYear schoolYear) {
+		this.schoolYear = schoolYear;
+	}
+
 	@OneToOne
 	private Subject subject;
 	
