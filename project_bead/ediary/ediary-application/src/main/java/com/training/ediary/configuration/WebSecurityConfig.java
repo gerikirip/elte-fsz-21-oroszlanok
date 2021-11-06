@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.training.ediary.application.service.H2UserDetailsService;
+import com.training.ediary.application.service.AppUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
     public UserDetailsService userDetailsService() {
-        return new H2UserDetailsService();
+        return new AppUserDetailsService();
     }
 
     

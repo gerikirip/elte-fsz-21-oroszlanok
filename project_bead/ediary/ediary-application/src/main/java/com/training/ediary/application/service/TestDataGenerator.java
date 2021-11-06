@@ -62,7 +62,7 @@ public class TestDataGenerator {
 	private AdminRepo adminRepo;
 	
 	@Autowired
-	private CreateData createData;
+	private CreateTestData createData;
 	
 	@Transactional
     public void createTestData(){
@@ -156,6 +156,8 @@ public class TestDataGenerator {
 
         
         TakingSubject takingSubject2019_2020Math = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student1, teacher1);
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(3,9)));
+        
         takingSubject2019_2020Math.addMark(createData.createMark(3, 9));
         takingSubject2019_2020Math.addMark(createData.createMark(2, 9));
         takingSubject2019_2020Math.addMark(createData.createMark(4, 9));

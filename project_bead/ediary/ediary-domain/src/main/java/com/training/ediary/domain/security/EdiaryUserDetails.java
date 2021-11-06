@@ -21,7 +21,6 @@ public class EdiaryUserDetails implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		System.out.println("ROLE_" + user.getClass().getSimpleName());
 		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_" + user.getClass().getSimpleName());
 		authorities.add(simpleGrantedAuthority);
 		return authorities;

@@ -47,7 +47,7 @@
         <div class="col-sm-2 my-3 mx-auto">
             <form:form  action="/adminPage/createSchoolClass" method="POST">
                	Osztály száma: <input type="number" min=1 max=12 value=1 name="classNumber">
-               	Osztály betűje: <input type="text"  maxlength="2" name="classText">
+               	Osztály neve: <input type="text"  maxlength="2" name="classText">
                 <input type="submit" class="btn btn-primary" value="Osztály hozzáadása">
             </form:form>
        </div>

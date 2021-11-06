@@ -94,7 +94,7 @@
 	 				    <td>
 						<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 						<c:forEach items="${monthmarks}" var="mark">
-							${mark.markScore}
+							<a href="/teacherMarkChange/${mark.markId}">${mark.markScore}</a>
 						</c:forEach>
 						</td>
 					</c:forEach>
@@ -103,7 +103,7 @@
 	 				    <td>
 						<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 						<c:forEach items="${monthmarks}" var="mark">
-							${mark.markScore}
+							<a href="/teacherMarkChange/${mark.markId}">${mark.markScore}</a>
 						</c:forEach>
 						</td>
 					</c:forEach> 
@@ -111,6 +111,10 @@
 	            </tbody>
 	            </c:forEach>
             </table>
+            
+            	<c:if test="${alert != null}"> 
+		     		<div class="alert alert-info"> ${alert} </div>
+		     	</c:if>  	
     </div>
   </body>
 </html>

@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.training.ediary.application.service.CreateData;
+import com.training.ediary.application.service.CreateTestData;
+import com.training.ediary.application.service.InClassService;
+import com.training.ediary.application.service.SchoolClassService;
+import com.training.ediary.application.service.SchoolYearService;
 import com.training.ediary.domain.SchoolClass;
 import com.training.ediary.domain.SchoolYear;
 import com.training.ediary.repository.SchoolClassRepo;
@@ -24,10 +27,13 @@ public class AdminPageController {
 	SchoolClassRepo schoolClassRepo;
 	
 	@Autowired
-	UniversalController universalController;
+	SchoolClassService schoolClassService;
 	
 	@Autowired
-	CreateData createData;
+	SchoolYearService schoolYearService;
+	
+	@Autowired
+	CreateTestData createData;
 	
 	@GetMapping("/adminPage")
 	public String adminPage(Model model) {
@@ -36,7 +42,7 @@ public class AdminPageController {
 	
 	@GetMapping("/adminPage/createschoolYear")
 	public String schoolYear(Model model) {
-		model.addAttribute("schoolYears",universalController.schoolYears());
+		model.addAttribute("schoolYears",schoolYearService.schoolYears());
 		return "adminView/createschoolYear";
 	}
 	
@@ -44,13 +50,13 @@ public class AdminPageController {
 	public String schoolYearCreate(Model model, @RequestParam int startYear, @RequestParam int endYear) {
 		SchoolYear schoolYear = createData.createSchoolYear(startYear, endYear);
         schoolYearRepo.save(schoolYear);
-        model.addAttribute("schoolYears",universalController.schoolYears());
+        model.addAttribute("schoolYears",schoolYearService.schoolYears());
 		return "adminView/createschoolYear";
 	}
 	
 	@GetMapping("/adminPage/createSchoolClass")
 	public String schoolClass(Model model) {
-		model.addAttribute("schoolClasses",universalController.schoolClasses());
+		model.addAttribute("schoolClasses",schoolClassService.schoolClasses());
 		return "adminView/createSchoolClass";
 	}
 	
@@ -58,7 +64,7 @@ public class AdminPageController {
 	public String schoolClassCreate(Model model, @RequestParam int classNumber, @RequestParam String classText) {
 		SchoolClass schoolClass = createData.createSchoolClass(classNumber + "/" + classText);
 		schoolClassRepo.save(schoolClass);
-		model.addAttribute("schoolClasses",universalController.schoolClasses());
+		model.addAttribute("schoolClasses",schoolClassService.schoolClasses());
 		return "adminView/createSchoolClass";
 	}
 	
