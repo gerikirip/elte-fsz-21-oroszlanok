@@ -1,9 +1,14 @@
 package com.training.ediary.domain;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Mark {
@@ -12,6 +17,7 @@ public class Mark {
 	private int markId;
 	private int markScore;
 	private int month;
+	private Date createDate;
 
 	public int getMarkId() {
 		return markId;
@@ -32,11 +38,27 @@ public class Mark {
 	public void setMonth(int month) {
 		this.month = month;
 	}
-
-
 	
-	/*
-	@ManyToOne
-	private TakingSubject felClass;
-	*/
+	public Date getCreateDate() {
+		return createDate;
+	}
+	
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	
+	public String getShortDate() {
+		return createDate.toString().split("\\.")[0];
+	}
+	
+	@OneToMany
+	private List<MarkHistory> markHistories;
+	
+	public List<MarkHistory> getMarkHistories() {
+		return markHistories;
+	}
+	
+	public void setMarkHistories(List<MarkHistory> markHistories) {
+		this.markHistories = markHistories;
+	}
 }

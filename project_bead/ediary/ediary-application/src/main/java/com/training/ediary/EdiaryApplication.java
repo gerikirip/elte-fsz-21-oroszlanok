@@ -27,5 +27,4 @@ public class EdiaryApplication {
 			testDataGenerator.createTestData();
         }; 
     } 
-
 }

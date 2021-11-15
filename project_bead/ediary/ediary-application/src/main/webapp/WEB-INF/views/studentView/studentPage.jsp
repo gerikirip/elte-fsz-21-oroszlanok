@@ -58,23 +58,23 @@
             <thead>
             <tr>
                 <th scope="col">Hónap:</th>
-                <th scope="col">09</th>
-                <th scope="col">10</th>
-                <th scope="col">11</th>
-                <th scope="col">12</th>
-                <th scope="col">I.</th>
-                <th scope="col">01</th>
-                <th scope="col">02</th>
-                <th scope="col">03</th>
-                <th scope="col">04</th>
-                <th scope="col">05</th>
-                <th scope="col">06</th>
-                <th scope="col">II.</th>
+                <th scope="col">Szeptember</th>
+                <th scope="col">Október</th>
+                <th scope="col">November</th>
+                <th scope="col">December</th>
+                <th scope="col">I. félév</th>
+                <th scope="col">Január</th>
+                <th scope="col">Február</th>
+                <th scope="col">Március</th>
+                <th scope="col">Április</th>
+                <th scope="col">Május</th>
+                <th scope="col">Június</th>
+                <th scope="col">II. félév</th>
             </tr>
             </thead>
-            
-            <c:forEach items="${takingSubjects}" var="takingSubject">
             <tbody>
+            <c:forEach items="${takingSubjects}" var="takingSubject">
+         
             <tr>
                 <th scope="row">${takingSubject.subject.subjectName}</th>
  				<c:forEach var = "i" begin = "9" end = "12">
@@ -95,8 +95,8 @@
 					</td>
 				</c:forEach> 
 			</tr>
-            </tbody>
             </c:forEach>
+            </tbody>
         </table>
     </div>
   </body>

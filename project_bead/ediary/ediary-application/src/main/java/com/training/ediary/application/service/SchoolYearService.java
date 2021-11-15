@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.training.ediary.domain.SchoolYear;
-import com.training.ediary.repository.SchoolYearRepo;
+import com.training.ediary.domain.repository.SchoolYearRepo;
 
 @Service
 public class SchoolYearService {

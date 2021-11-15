@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.training.ediary.domain.Student;
-import com.training.ediary.repository.InClassRepo;
+import com.training.ediary.domain.repository.InClassRepo;
 
 
 @Service

@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.training.ediary.domain.EdiaryUser;
+import com.training.ediary.domain.repository.EdiaryUserRepo;
 import com.training.ediary.domain.security.EdiaryUserDetails;
-import com.training.ediary.repository.EdiaryUserRepo;
 
 @Service
 public class AppUserDetailsService implements UserDetailsService{
@@ -22,9 +22,7 @@ public class AppUserDetailsService implements UserDetailsService{
 		
 		if(user == null) {
 			throw new UsernameNotFoundException("Hibas user!"); 
-		}
-		
-		
+		}	
 		return new EdiaryUserDetails(user);
 	}
 }

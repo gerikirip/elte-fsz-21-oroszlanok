@@ -13,7 +13,7 @@ import com.training.ediary.domain.Mark;
 import com.training.ediary.domain.Student;
 import com.training.ediary.domain.TakingSubject;
 import com.training.ediary.domain.Teacher;
-import com.training.ediary.repository.TakingSubjectRepo;
+import com.training.ediary.domain.repository.TakingSubjectRepo;
 
 @Service
 public class TakingSubjectService {
@@ -31,7 +31,14 @@ public class TakingSubjectService {
 	private SubjectService subjectService;
 	
 	@Autowired
+	private InClassService inClassService;
+	
+	@Autowired
 	private MarkService markService;
+	
+	public Optional<TakingSubject> selectedId(int id){
+		return takingSubjectRepo.findById(id);
+	}
 
 	public List<TakingSubject> takingSubjectsByStudent(HttpServletRequest request, int selectYear){
 		if(schoolYearService.selectedYear(selectYear).isPresent() && ediaryUserService.loginUser(request) != null)
@@ -49,8 +56,10 @@ public class TakingSubjectService {
 		return null;
 	}
 	
-	public List<TakingSubject> takingSubjectFiltered(List<Student> studentList, List<TakingSubject> takingSubjects){
+	public List<TakingSubject> takingSubjectFiltered(HttpServletRequest request, int selectSubject, int selectYear, int selectSchoolClass){
 		List<TakingSubject> takingSubjectFiltered = new ArrayList<>();
+		List<Student> studentList = inClassService.studentListBySchoolClass(request, selectYear, selectSchoolClass);		
+		List<TakingSubject> takingSubjects = findBySubjectAndSchoolYearAndTeacher(request, selectSubject, selectYear);
 		for(TakingSubject takingSubject : takingSubjects)
 		{
 			if(studentList.contains(takingSubject.getStudent()))

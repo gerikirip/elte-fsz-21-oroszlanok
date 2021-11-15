@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.training.ediary.domain.EdiaryUser;
-import com.training.ediary.repository.EdiaryUserRepo;
+import com.training.ediary.domain.repository.EdiaryUserRepo;
 
 @Service
 public class EdiaryUserService {

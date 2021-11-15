@@ -1,5 +1,8 @@
 package com.training.ediary.application.service;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.training.ediary.domain.Admin;
@@ -102,6 +105,13 @@ public class CreateData {
 		Mark mark = new Mark();
 		mark.setMarkScore(markScore);
 		mark.setMonth(month);
+		mark.setCreateDate(new Date());
 		return mark;
+	}
+	
+	public List<Mark> addMark(List<Mark> marks, Mark mark)
+	{
+		marks.add(mark);
+		return marks;
 	}
 }

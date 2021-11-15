@@ -25,12 +25,6 @@
               <a href="/teacherPage"><input type="button" class="btn btn-outline-light" value="Napló"></a>
             </li>
             <li class="nav-item">
-              <a href="/teacherPage"><input type="button" class="btn btn-outline-light" value="Jegybeírás"></a>
-            </li>
-            <li class="nav-item">
-             <a href="/teacherPage"><input type="button" class="btn btn-outline-light" value="Hiányzássbeírás"></a>
-            </li>
-            <li class="nav-item">
                <form:form action="/logout" method="POST">
               	<input type="submit" class="btn btn-outline-light" value="Kijelentkezés">
               </form:form>
@@ -70,24 +64,24 @@
             <thead>
             <tr>
                 <th scope="col">Hónap:</th>
-                <th scope="col">09</th>
-                <th scope="col">10</th>
-                <th scope="col">11</th>
-                <th scope="col">12</th>
-                <th scope="col">I.</th>
-                <th scope="col">01</th>
-                <th scope="col">02</th>
-                <th scope="col">03</th>
-                <th scope="col">04</th>
-                <th scope="col">05</th>
-                <th scope="col">06</th>
-                <th scope="col">II.</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">Szeptember</th>
+                <th scope="col">Október</th>
+                <th scope="col">November</th>
+                <th scope="col">December</th>
+                <th scope="col">I. félév</th>
+                <th scope="col">Január</th>
+                <th scope="col">Február</th>
+                <th scope="col">Március</th>
+                <th scope="col">Április</th>
+                <th scope="col">Május</th>
+                <th scope="col">Június</th>
+                <th scope="col">II. félév</th>
+  
             </tr>
             </thead>
+            	<tbody>
 	            <c:forEach items="${takingSubjects}" var="takingSubject">
-	            <tbody>
+
 	            <tr>
 	                <th scope="row">${takingSubject.student.name}</th>
 	 				<c:forEach var = "i" begin = "9" end = "12">
@@ -106,10 +100,19 @@
 							<a href="/teacherMarkChange/${mark.markId}">${mark.markScore}</a>
 						</c:forEach>
 						</td>
-					</c:forEach> 
+					</c:forEach>
+					<td></td>
+					<c:if test="${isCurrentSemester}"> 
+					<td>
+						<a href="/teacherMarkAdd/${takingSubject.takingSubjectId}">Jegy beírása</a>
+					</td>
+					<td>
+						<a href="#">Hiányzás beírása</a>
+					</td> 
+					</c:if>
 				</tr>
-	            </tbody>
 	            </c:forEach>
+	           	</tbody>
             </table>
             
             	<c:if test="${alert != null}"> 

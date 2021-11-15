@@ -17,25 +17,22 @@ import com.training.ediary.domain.Subject;
 import com.training.ediary.domain.TakingSubject;
 import com.training.ediary.domain.Teacher;
 import com.training.ediary.domain.Teaching;
-import com.training.ediary.repository.AdminRepo;
-import com.training.ediary.repository.InClassRepo;
-import com.training.ediary.repository.MarkRepo;
-import com.training.ediary.repository.SchoolClassRepo;
-import com.training.ediary.repository.SchoolYearRepo;
-import com.training.ediary.repository.StudentRepo;
-import com.training.ediary.repository.SubjectRepo;
-import com.training.ediary.repository.TakingSubjectRepo;
-import com.training.ediary.repository.TeacherRepo;
-import com.training.ediary.repository.TeachingRepo;
+import com.training.ediary.domain.repository.AdminRepo;
+import com.training.ediary.domain.repository.InClassRepo;
+import com.training.ediary.domain.repository.MarkRepo;
+import com.training.ediary.domain.repository.SchoolClassRepo;
+import com.training.ediary.domain.repository.SchoolYearRepo;
+import com.training.ediary.domain.repository.StudentRepo;
+import com.training.ediary.domain.repository.SubjectRepo;
+import com.training.ediary.domain.repository.TakingSubjectRepo;
+import com.training.ediary.domain.repository.TeacherRepo;
+import com.training.ediary.domain.repository.TeachingRepo;
 
 @Component
 public class TestDataGenerator {
 	
 	@Autowired
 	private InClassRepo  inClassRepo;
-	
-	@Autowired
-	private MarkRepo markRepo;
 	
 	@Autowired
 	private SchoolClassRepo schoolClassRepo;
@@ -62,7 +59,7 @@ public class TestDataGenerator {
 	private AdminRepo adminRepo;
 	
 	@Autowired
-	private CreateTestData createData;
+	private CreateData createData;
 	
 	@Transactional
     public void createTestData(){
@@ -103,6 +100,9 @@ public class TestDataGenerator {
         SchoolYear schoolYear2020_2021 = createData.createSchoolYear(2020, 2021);
         schoolYearRepo.save(schoolYear2020_2021);
         
+        SchoolYear schoolYear2021_2022 = createData.createSchoolYear(2021, 2022);
+        schoolYearRepo.save(schoolYear2021_2022);
+        
         SchoolClass schoolClass9a = createData.createSchoolClass("9/a");
         schoolClassRepo.save(schoolClass9a);
         
@@ -114,6 +114,9 @@ public class TestDataGenerator {
         
         SchoolClass schoolClass10c = createData.createSchoolClass("10/c");
         schoolClassRepo.save(schoolClass10c);
+        
+        SchoolClass schoolClass11c = createData.createSchoolClass("11/c");
+        schoolClassRepo.save(schoolClass11c);
         
         InClass inClass9A_1 = createData.createInClass(student3, schoolYear2019_2020, schoolClass9a, teacher2);
         inClassRepo.save(inClass9A_1);
@@ -127,11 +130,17 @@ public class TestDataGenerator {
         InClass inClass10C_1 = createData.createInClass(student1, schoolYear2020_2021, schoolClass10c, teacher1);
         inClassRepo.save(inClass10C_1);
         
+        InClass inClass11C_1 = createData.createInClass(student1, schoolYear2021_2022, schoolClass11c, teacher1);
+        inClassRepo.save(inClass11C_1);
+        
         InClass inClass9C_2 = createData.createInClass(student2, schoolYear2019_2020, schoolClass9c, teacher1);
         inClassRepo.save(inClass9C_2);
         
         InClass inClass10C_2 = createData.createInClass(student2, schoolYear2020_2021, schoolClass10c, teacher1);
         inClassRepo.save(inClass10C_2);
+        
+        InClass inClass11C_2 = createData.createInClass(student2, schoolYear2021_2022, schoolClass11c, teacher1);
+        inClassRepo.save(inClass11C_2);
         
         Teaching teachingMath_1920 = createData.createTeaching(teacher1, subject_Math, schoolYear2019_2020);
         teachingRepo.save(teachingMath_1920);
@@ -153,93 +162,140 @@ public class TestDataGenerator {
         
         Teaching teachingBio = createData.createTeaching(teacher2, subject_Bio, schoolYear2020_2021);
         teachingRepo.save(teachingBio);
+        
+        Teaching teachingMath2_2122 = createData.createTeaching(teacher2, subject_Math, schoolYear2021_2022);
+        teachingRepo.save(teachingMath2_2122);
 
         
         TakingSubject takingSubject2019_2020Math = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student1, teacher1);
         takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(3,9)));
-        
-        takingSubject2019_2020Math.addMark(createData.createMark(3, 9));
-        takingSubject2019_2020Math.addMark(createData.createMark(2, 9));
-        takingSubject2019_2020Math.addMark(createData.createMark(4, 9));
-        takingSubject2019_2020Math.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Math.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Math.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Math.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Math.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Math.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Math.addMark(createData.createMark(1, 2));
-        takingSubject2019_2020Math.addMark(createData.createMark(3, 3));
-        takingSubject2019_2020Math.addMark(createData.createMark(5, 6));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(2,9)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(4,9)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(5,9)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(5,9)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(5,10)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(3,10)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(3,10)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(1,2)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(3,3)));
+        takingSubject2019_2020Math.setMarks(createData.addMark(takingSubject2019_2020Math.getMarks(), createData.createMark(5,6)));
         takingSubjectRepo.save(takingSubject2019_2020Math);
         
         TakingSubject takingSubject2019_2020Math_kata = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student2, teacher2);
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(3, 9));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(2, 9));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(4, 9));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(1, 2));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(3, 3));
-        takingSubject2019_2020Math_kata.addMark(createData.createMark(5, 6));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(3,9)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(2,9)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(4,9)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(5,10)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(5,10)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(5,10)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(1,2)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(3,3)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(5,6)));
+        takingSubject2019_2020Math_kata.setMarks(createData.addMark(takingSubject2019_2020Math_kata.getMarks(), createData.createMark(5,6)));
         takingSubjectRepo.save(takingSubject2019_2020Math_kata);
         
+        TakingSubject takingSubject2020_2021Math_kata = createData.createTakingSubject(schoolYear2020_2021, subject_Math, student2, teacher2);
+        takingSubject2020_2021Math_kata.setMarks(createData.addMark(takingSubject2020_2021Math_kata.getMarks(), createData.createMark(5,9)));
+        takingSubjectRepo.save(takingSubject2020_2021Math_kata);
+        
+        TakingSubject takingSubject2021_2022Math_kata = createData.createTakingSubject(schoolYear2021_2022, subject_Math, student2, teacher2);
+        takingSubject2021_2022Math_kata.setMarks(createData.addMark(takingSubject2021_2022Math_kata.getMarks(), createData.createMark(5,9)));
+        takingSubject2021_2022Math_kata.setMarks(createData.addMark(takingSubject2021_2022Math_kata.getMarks(), createData.createMark(4,10)));
+        takingSubjectRepo.save(takingSubject2021_2022Math_kata);
+        
         TakingSubject takingSubject2019_2020Literature = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student1, teacher2);
-        takingSubject2019_2020Literature.addMark(createData.createMark(5, 9));
-        takingSubject2019_2020Literature.addMark(createData.createMark(2, 9));
-        takingSubject2019_2020Literature.addMark(createData.createMark(4, 10));
-        takingSubject2019_2020Literature.addMark(createData.createMark(2, 10));
-        takingSubject2019_2020Literature.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Literature.addMark(createData.createMark(2, 10));
-        takingSubject2019_2020Literature.addMark(createData.createMark(5, 11));
-        takingSubject2019_2020Literature.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Literature.addMark(createData.createMark(4, 12));
-        takingSubject2019_2020Literature.addMark(createData.createMark(4, 1));
-        takingSubject2019_2020Literature.addMark(createData.createMark(2, 2));
-        takingSubject2019_2020Literature.addMark(createData.createMark(3, 5));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(5,9)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(2,9)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(4,10)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(2,10)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(5,11)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(4,11)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(4,12)));	
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(5,12)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(5,12)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(4,1)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(2,2)));
+        takingSubject2019_2020Literature.setMarks(createData.addMark(takingSubject2019_2020Literature.getMarks(), createData.createMark(3,5)));
         takingSubjectRepo.save(takingSubject2019_2020Literature);
         
         TakingSubject takingSubject2019_2020Lit_kata = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student2, teacher2);
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(3, 9));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(2, 9));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(4, 9));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(1, 2));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(3, 3));
-        takingSubject2019_2020Lit_kata.addMark(createData.createMark(5, 6));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(4,1)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(3,9)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(2,9)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(4,9)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(5,10)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(5,10)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(5,10)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(1,2)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(3,3)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(5,6)));
+        takingSubject2019_2020Lit_kata.setMarks(createData.addMark(takingSubject2019_2020Lit_kata.getMarks(), createData.createMark(4,6)));
         takingSubjectRepo.save(takingSubject2019_2020Lit_kata);
         
         TakingSubject takingSubject2019_2020Lit_emil = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student3, teacher2);
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(4, 9));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(2, 9));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(4, 10));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(5, 10));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(2, 10));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(3, 10));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(3, 11));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(4, 12));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(3, 1));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(5, 2));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(3, 3));
-        takingSubject2019_2020Lit_emil.addMark(createData.createMark(5, 6));
+        
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,1)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,9)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(2,9)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,10)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(5,10)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(2,10)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(3,10)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,11)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(3,11)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,11)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(2,12)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(2,12)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(5,12)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(3,1)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(2,1)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,1)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,1)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,2)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,2)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,2)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(5,3)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(2,3)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(5,3)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(1,4)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(1,4)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(2,5)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(2,5)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,5)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(3,6)));
+        takingSubject2019_2020Lit_emil.setMarks(createData.addMark(takingSubject2019_2020Lit_emil.getMarks(), createData.createMark(4,6)));
         takingSubjectRepo.save(takingSubject2019_2020Lit_emil);
         
         
         TakingSubject takingSubject2020_2021 = createData.createTakingSubject(schoolYear2020_2021, subject_Math, student1, teacher2);
-        takingSubject2020_2021.addMark(createData.createMark(3, 9));
-        takingSubject2020_2021.addMark(createData.createMark(3, 9));
-        takingSubject2020_2021.addMark(createData.createMark(3, 9));
-        takingSubject2020_2021.addMark(createData.createMark(5, 10));
-        takingSubject2020_2021.addMark(createData.createMark(4, 10));
-        takingSubject2020_2021.addMark(createData.createMark(5, 10));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(3,9)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(3,9)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(5,10)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,10)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(5,10)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,11)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(5,11)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,11)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,12)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(3,12)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,1)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(1,1)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,2)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(2,2)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,2)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,3)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(5,3)));
+        takingSubject2020_2021.setMarks(createData.addMark(takingSubject2020_2021.getMarks(), createData.createMark(4,3)));
         takingSubjectRepo.save(takingSubject2020_2021);
     }	
 }

@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 public class TakingSubject {
@@ -101,9 +100,5 @@ public class TakingSubject {
 
 	public void setAuthAbsents(List<authAbsent> authAbsents) {
 		this.authAbsents = authAbsents;
-	}
-	
-	public void addMark(Mark mark){
-		marks.add(mark);
 	}
 }
