@@ -36,6 +36,9 @@ public class TakingSubjectService {
 	@Autowired
 	private MarkService markService;
 	
+	@Autowired
+	private EdiaryService ediaryService;
+	
 	public Optional<TakingSubject> selectedId(int id){
 		return takingSubjectRepo.findById(id);
 	}
@@ -58,7 +61,7 @@ public class TakingSubjectService {
 	
 	public List<TakingSubject> takingSubjectFiltered(HttpServletRequest request, int selectSubject, int selectYear, int selectSchoolClass){
 		List<TakingSubject> takingSubjectFiltered = new ArrayList<>();
-		List<Student> studentList = inClassService.studentListBySchoolClass(request, selectYear, selectSchoolClass);		
+		List<Student> studentList = inClassService.studentListBySchoolClass(selectYear, selectSchoolClass);		
 		List<TakingSubject> takingSubjects = findBySubjectAndSchoolYearAndTeacher(request, selectSubject, selectYear);
 		for(TakingSubject takingSubject : takingSubjects)
 		{
@@ -77,5 +80,22 @@ public class TakingSubjectService {
 			return takingSubjectRepo.findTakingSubjectIdByMarkId(mark.get());
 		}
 		return null;
+	}
+	
+	public void successOrNotSuccessYear(int id) {
+		Optional<TakingSubject> takingSubject = selectedId(id);
+		if(takingSubject.isPresent()) {
+			double firstSemesterAvg = takingSubject.get().getFirstAvg();
+			double secondSemesterAvg = takingSubject.get().getSecondAvg();
+			if(firstSemesterAvg > 2.0 && secondSemesterAvg > 2.0) {
+				takingSubject.get().setSuYear(true);
+				takingSubject.get().setEndMark((int)Math.round(secondSemesterAvg));
+			}
+			else {
+				takingSubject.get().setSuYear(false);
+				takingSubject.get().setEndMark(1);
+			}
+			takingSubjectRepo.save(takingSubject.get());
+		}
 	}
 }

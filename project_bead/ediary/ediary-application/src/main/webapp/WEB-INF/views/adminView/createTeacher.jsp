@@ -42,6 +42,36 @@
           </ul>
         </div>
       </nav>
+      
+      <div class="container">
+        <div class="col-sm-2 my-3 mx-auto">
+            <form:form  action="/adminPage/createTeacher" method="POST">
+               
+            </form:form>
+       </div>
+       
+       Tanárok:
+        <table class="table">
+            <thead>
+            <tr>
+            	<th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            
+
+            <tbody>
+            <tr>
+            	<th scope="row"></th>
+ 				<td></td>
+ 				<td></td>	
+			</tr>
+
+            </tbody>
+        </table>
+       
+       </div>
 		
 
   </body>

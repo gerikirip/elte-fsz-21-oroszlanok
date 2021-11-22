@@ -25,7 +25,7 @@ public class InClassService {
 	@Autowired
 	private SchoolClassService schoolClassService;
 	
-	public List<Student> studentListBySchoolClass(HttpServletRequest request, int selectYear, int selectSchoolClass){
+	public List<Student> studentListBySchoolClass(int selectYear, int selectSchoolClass){
 		if(schoolYearService.selectedYear(selectYear).isPresent() && schoolClassService.selectedSchoolClass(selectSchoolClass).isPresent())
 		{
 			return inClassRepo.findStudentsInClass(schoolYearService.selectedYear(selectYear).get(),schoolClassService.selectedSchoolClass(selectSchoolClass).get()); 

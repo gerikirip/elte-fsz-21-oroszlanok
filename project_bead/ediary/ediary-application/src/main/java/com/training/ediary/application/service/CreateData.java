@@ -1,10 +1,14 @@
 package com.training.ediary.application.service;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.validator.constraints.ISBN;
 import org.springframework.stereotype.Component;
 
+import com.training.ediary.domain.Absent;
 import com.training.ediary.domain.Admin;
 import com.training.ediary.domain.InClass;
 import com.training.ediary.domain.Mark;
@@ -71,13 +75,16 @@ public class CreateData {
 		return schoolClass;
 	}
 	
-	public TakingSubject createTakingSubject(SchoolYear schoolYear, Subject subject, Student student, Teacher teacher)
+	public TakingSubject createTakingSubject(SchoolYear schoolYear, Subject subject, Student student, Teacher teacher, Boolean suYear, int endMark)
 	{
 		TakingSubject takingSubject = new TakingSubject();
 		takingSubject.setSchoolYear(schoolYear);
 		takingSubject.setSubject(subject);
 		takingSubject.setStudent(student);
 		takingSubject.setTeacher(teacher);
+		takingSubject.setSuYear(suYear);
+		if(suYear != null && suYear)
+		{ takingSubject.setEndMark(endMark); }
 		return takingSubject;
 	}
 	
@@ -113,5 +120,19 @@ public class CreateData {
 	{
 		marks.add(mark);
 		return marks;
+	}
+	
+	public Absent createAbsent(LocalDateTime date, Time endTime)
+	{
+		Absent absent = new Absent();
+		absent.setDate(date);
+		absent.setEndTime(endTime);
+		return absent;
+	}
+	
+	public List<Absent> addAbsent(List<Absent> absents, Absent absent)
+	{
+		absents.add(absent);
+		return absents;
 	}
 }

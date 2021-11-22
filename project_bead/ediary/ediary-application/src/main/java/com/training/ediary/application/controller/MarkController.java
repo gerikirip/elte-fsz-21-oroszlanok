@@ -22,10 +22,8 @@ public class MarkController {
 	private MarkService markService;
 	
 	@GetMapping("/teacherMarkChange/{id}")
-	public String markView(Model model, @PathVariable(name="id") int markId, HttpServletRequest request) {
-		
+	public String markView(Model model, @PathVariable(name="id") int markId, HttpServletRequest request) {		
 		return markService.markChangeView(model, markId, request);
-		
 	}
 	
 	@PostMapping("/teacherMarkChange")

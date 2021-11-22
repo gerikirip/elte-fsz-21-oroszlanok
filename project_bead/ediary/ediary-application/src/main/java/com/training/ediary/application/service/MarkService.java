@@ -42,6 +42,9 @@ public class MarkService {
 	private CreateData createData;
 	
 	@Autowired
+	private EdiaryService ediaryService;
+	
+	@Autowired
 	private MarkHistoryRepo markHistoryRepo;
 	
 	@Autowired
@@ -57,7 +60,7 @@ public class MarkService {
 		InClass studentClass = inClassRepo.findByStudentAndSchoolYear(takingSubject.getStudent(),takingSubject.getSchoolYear());
 		if(loginTeacher.getEdiaryUserId() == takingSubject.getTeacher().getEdiaryUserId()) 
 		{
-			model.addAttribute("isCurrentSemester", isCurrentSemester(takingSubject.getSchoolYear()));
+			model.addAttribute("isCurrentSemester", ediaryService.isCurrentSemester(takingSubject.getSchoolYear()));
 			model.addAttribute("mark",selectedMark(markId).get());
 			model.addAttribute("takingSubject",takingSubject);
 			model.addAttribute("studentClass",studentClass.getSchoolClass().getClassName());
@@ -72,7 +75,7 @@ public class MarkService {
 			Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 			if(loginTeacher.getEdiaryUserId() == takingSubject.getTeacher().getEdiaryUserId()) 
 			{
-				if(isCurrentSemester(takingSubject.getSchoolYear()))
+				if(ediaryService.isCurrentSemester(takingSubject.getSchoolYear()))
 				{
 					MarkHistory markHistory = new MarkHistory();
 					Mark changeMark = selectedMark(markId).get();
@@ -114,45 +117,17 @@ public class MarkService {
 			TakingSubject takingSubject = selectedId.get();
 			if(loginTeacher.getEdiaryUserId() == takingSubject.getTeacher().getEdiaryUserId())
 			{				
-				if(isCurrentSemester(takingSubject.getSchoolYear()))
+				if(ediaryService.isCurrentSemester(takingSubject.getSchoolYear()))
 				{
-					Mark mark = createData.createMark(markScore, getCurrentMonth());
+					Mark mark = createData.createMark(markScore, ediaryService.getCurrentMonth());
 			        takingSubject.setMarks(createData.addMark(takingSubject.getMarks(), mark));
 			        
-			        createData.createMark(markScore, getCurrentMonth());
+			        //createData.createMark(markScore, ediaryService.getCurrentMonth());
 					markRepo.save(mark);
 					return "redirect:/teacherPage/succesfullchange";
 				}
 			}
 		}
 		return "deniedPage";
-	}
-	
-	public boolean isCurrentSemester(SchoolYear schoolYear)
-	{
-		int currentYear = getCurrentYear();
-		int currentMonth = getCurrentMonth();
-		if((currentMonth <13 && currentMonth > 8 && currentYear == schoolYear.getStartSchoolYear()) || 
-				(currentMonth >0 && currentMonth < 7 && currentYear == schoolYear.getEndSchoolYear()))
-		{
-			return true;
-		}
-		return false;
-	}
-	
-	public int getCurrentMonth() {
-		Date date= new Date();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		int month = cal.get(Calendar.MONTH);
-		return month + 1;
-	}
-	
-	public int getCurrentYear() {
-		Date date= new Date();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		int year = cal.get(Calendar.YEAR);
-		return year;
 	}
 }

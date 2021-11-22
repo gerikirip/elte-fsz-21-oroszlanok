@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="hu">
   <head>
@@ -39,19 +40,19 @@
                 Tantárgy:
                 <select class="form-control form-control-sm" name="selectSubject">
                  <c:forEach items="${teacherSubjects}" var="teacherSubject">
-                      <option value="${teacherSubject.subjectId}" ${selectedSubject == teacherSubject.subjectId ? 'selected="selected"' : ''}>${teacherSubject.subjectName}</option>
+                      <option value="${teacherSubject.subjectId}" ${choosenSubject == teacherSubject.subjectId ? 'selected="selected"' : ''}>${teacherSubject.subjectName}</option>
                  </c:forEach>
                 </select>
                 Tanév:
                 <select class="form-control form-control-sm" name="selectYear">
                      <c:forEach items="${schoolYears}" var="schoolYear">
-                		<option value="${schoolYear.schoolYearId}" ${selectedYear == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
+                		<option value="${schoolYear.schoolYearId}" ${choosenYears == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
                 	</c:forEach>
                 </select>
                 Osztály:
                 <select class="form-control form-control-sm" name="selectSchoolClass">
                      <c:forEach items="${schoolClasses}" var="schoolClass">
-                		<option value="${schoolClass.classId}" ${selectedSchoolClass == schoolClass.classId ? 'selected="selected"' : ''}>${schoolClass.className}</option>
+                		<option value="${schoolClass.classId}" ${choosenClass == schoolClass.classId ? 'selected="selected"' : ''}>${schoolClass.className}</option>
                 	</c:forEach>
                 </select>
                 <input type="submit" class="btn btn-primary" value="Kiválasztása">
@@ -76,45 +77,52 @@
                 <th scope="col">Május</th>
                 <th scope="col">Június</th>
                 <th scope="col">II. félév</th>
+                <th scope="col">Lezárt jegy</th>
   
             </tr>
             </thead>
             	<tbody>
 	            <c:forEach items="${takingSubjects}" var="takingSubject">
 
-	            <tr>
+	            <tr class='${takingSubject.suYear ? "bg-success" : takingSubject.suYear == false ? "bg-danger" : ""}'>
 	                <th scope="row">${takingSubject.student.name}</th>
 	 				<c:forEach var = "i" begin = "9" end = "12">
 	 				    <td>
 						<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 						<c:forEach items="${monthmarks}" var="mark">
-							<a href="/teacherMarkChange/${mark.markId}">${mark.markScore}</a>
+							<a href="/teacherMarkChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
 						</c:forEach>
 						</td>
 					</c:forEach>
-					<td></td>
+					<td><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${takingSubject.firstAvg}"/></td>
 					<c:forEach var = "i" begin = "1" end = "6">
 	 				    <td>
 						<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 						<c:forEach items="${monthmarks}" var="mark">
-							<a href="/teacherMarkChange/${mark.markId}">${mark.markScore}</a>
+							<a href="/teacherMarkChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
 						</c:forEach>
 						</td>
 					</c:forEach>
-					<td></td>
-					<c:if test="${isCurrentSemester}"> 
+					<td><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${takingSubject.secondAvg}"/></td>
+					<c:if test="${isCurrentSemester && takingSubject.suYear == null}">
+					<td></td> 
 					<td>
 						<a href="/teacherMarkAdd/${takingSubject.takingSubjectId}">Jegy beírása</a>
 					</td>
 					<td>
-						<a href="#">Hiányzás beírása</a>
+						<a href="/teacherAbsent/${takingSubject.takingSubjectId}">Hiányzás beírása</a>
+					</td>
+					<td>
+						<a href="/teacherSuccessYear/${takingSubject.takingSubjectId}">Lezárás</a>
 					</td> 
+					</c:if>
+					<c:if test="${takingSubject.suYear != null}"> 
+						<td class="">${takingSubject.endMark}</td><td></td><td></td><td></td> 
 					</c:if>
 				</tr>
 	            </c:forEach>
 	           	</tbody>
             </table>
-            
             	<c:if test="${alert != null}"> 
 		     		<div class="alert alert-info"> ${alert} </div>
 		     	</c:if>  	

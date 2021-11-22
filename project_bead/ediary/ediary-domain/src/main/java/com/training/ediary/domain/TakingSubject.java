@@ -42,6 +42,60 @@ public class TakingSubject {
 	@OneToMany(cascade = {CascadeType.ALL})
 	private List<Mark> marks = new ArrayList<>();
 	
+	private Boolean suYear;
+	
+	private int endMark;
+	
+	public double getFirstAvg() {
+		double avg = 0.0;
+		double markCount = 0.0;
+		for(Mark mark : marks) {
+			if(mark.getMonth() > 8 && mark.getMonth() < 13) {
+				avg += mark.getMarkScore();
+				markCount++;
+			}
+		}
+		
+		if(markCount == 0)
+		{
+			return 0;
+		}
+		
+		return avg / markCount;
+	}
+	
+	public double getSecondAvg() {
+		double avg = 0.0;
+		double markCount = 0.0;
+		for(Mark mark : marks) {
+				avg += mark.getMarkScore();
+				markCount++;
+		}
+		
+		if(markCount == 0)
+		{
+			return 0;
+		}
+		
+		return avg / markCount;
+	}
+	
+	public int getEndMark() {
+		return endMark;
+	}
+	
+	public void setEndMark(int endMark) {
+		this.endMark = endMark;
+	}
+	
+	public Boolean getSuYear() {
+		return suYear;
+	}
+	
+	public void setSuYear(Boolean suYear) {
+		this.suYear = suYear;
+	}
+	
 	public Teacher getTeacher() {
 		return teacher;
 	}

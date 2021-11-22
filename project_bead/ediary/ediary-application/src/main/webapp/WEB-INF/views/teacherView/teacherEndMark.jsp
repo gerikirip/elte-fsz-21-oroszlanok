@@ -34,40 +34,17 @@
       </nav>
 
      <div class="container">
+     	<div>Név: ${takingSubject.student.name}</div>
+        <div>Tantárgy: ${takingSubject.subject.subjectName}</div>
+        <div>Évfolyam: ${takingSubject.schoolYear.startSchoolYear}/${takingSubject.schoolYear.endSchoolYear}</div>
+        <div>Osztály: ${studentClass}</div>
         <div class="col-sm-2 my-3">
-        	<div>Név: ${takingSubject.student.name}</div>
-        	<div>Tantárgy: ${takingSubject.subject.subjectName}</div>
-        	<div>Évfolyam: ${takingSubject.schoolYear.startSchoolYear}/${takingSubject.schoolYear.endSchoolYear}</div>
-        	<div>Osztály: ${studentClass}</div>
-        	<c:if test="${isCurrentSemester && takingSubject.suYear == null}"> 
-	            <form:form  action="/teacherMarkChange" method="POST">
-	           		<input type="number" name="markScore" min="1" max="5" value="${mark.markScore}">
-	           		<input type="hidden" name="markId" value="${mark.markId}">
-	           		<input type="submit" class="btn btn-primary" value="Módosít">
-	            </form:form>
-            </c:if>
+            <form:form  action="/teacherEndMark" method="POST">
+           		<input type="number" name="markScore" min="1" max="5" value="3">
+           		<input type="hidden" name="takingSubjectId" value="${takingSubject.takingSubjectId}">
+           		<input type="submit" class="btn btn-primary" value="Lezárás">
+            </form:form>
         </div>
-        
-        <div>A jegy ekkor került be: ${mark.getShortDate()}</div>
-         <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Jegy módosítva erről:</th>
-                <th scope="col">Erre:</th>
-                <th scope="col">Időpont</th>
-            </tr>
-            </thead>
-	            <tbody>
-	                <c:forEach items="${mark.markHistories}" var="markHistory">
-	               	<tr>
-	 				    <td>${markHistory.preChangedMark}</td>
-						<td>${markHistory.postChangedMark}</td>
-						<td>${markHistory.getShortDate()}</td>
-					</tr>
-					</c:forEach>
-	            </tbody>
-            </table>
-        
     </div>
   </body>
 </html>
