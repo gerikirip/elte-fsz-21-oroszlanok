@@ -13,8 +13,6 @@ import com.training.ediary.domain.Student;
 import com.training.ediary.domain.Subject;
 import com.training.ediary.domain.TakingSubject;
 import com.training.ediary.domain.Teacher;
-import com.training.ediary.domain.Teaching;
-import com.training.ediary.domain.projection.TakingSubjectId;
 
 @Repository
 public interface TakingSubjectRepo extends JpaRepository<TakingSubject, Integer>{

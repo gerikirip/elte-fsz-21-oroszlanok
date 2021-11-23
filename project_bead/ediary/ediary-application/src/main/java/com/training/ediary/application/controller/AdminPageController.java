@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.training.ediary.application.service.CreateData;
-import com.training.ediary.application.service.InClassService;
+import com.training.ediary.application.service.StudentService;
 import com.training.ediary.application.service.SchoolClassService;
 import com.training.ediary.application.service.SchoolYearService;
+import com.training.ediary.application.transform.view.SchoolClassViewTransform;
+import com.training.ediary.application.transform.view.SchoolYearViewTransform;
+import com.training.ediary.application.transform.view.SubjectViewTransform;
+import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
 import com.training.ediary.domain.SchoolClass;
 import com.training.ediary.domain.SchoolYear;
 import com.training.ediary.domain.repository.SchoolClassRepo;
@@ -35,6 +39,12 @@ public class AdminPageController {
 	@Autowired
 	CreateData createData;
 	
+	@Autowired
+	private SchoolYearViewTransform schoolYearViewTransform;
+	
+	@Autowired
+	private SchoolClassViewTransform schoolClassViewTransform;
+	
 	@GetMapping("/adminPage")
 	public String adminPage(Model model) {
 		return "adminView/adminPage";
@@ -42,7 +52,7 @@ public class AdminPageController {
 	
 	@GetMapping("/adminPage/createschoolYear")
 	public String schoolYear(Model model) {
-		model.addAttribute("schoolYears",schoolYearService.schoolYears());
+		model.addAttribute("schoolYears",schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		return "adminView/createschoolYear";
 	}
 	
@@ -50,7 +60,7 @@ public class AdminPageController {
 	public String schoolYearCreate(Model model, @RequestParam int startYear, @RequestParam int endYear) {
 		SchoolYear schoolYear = createData.createSchoolYear(startYear, endYear);
         schoolYearRepo.save(schoolYear);
-        model.addAttribute("schoolYears",schoolYearService.schoolYears());
+        model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		return "adminView/createschoolYear";
 	}
 	
@@ -64,7 +74,7 @@ public class AdminPageController {
 	public String schoolClassCreate(Model model, @RequestParam int classNumber, @RequestParam String classText) {
 		SchoolClass schoolClass = createData.createSchoolClass(classNumber + "/" + classText);
 		schoolClassRepo.save(schoolClass);
-		model.addAttribute("schoolClasses",schoolClassService.schoolClasses());
+		model.addAttribute("schoolClasses",schoolClassViewTransform.schoolClassListTransform(schoolClassService.schoolClasses()));
 		return "adminView/createSchoolClass";
 	}
 	

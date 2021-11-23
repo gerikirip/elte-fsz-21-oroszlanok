@@ -1,8 +1,5 @@
 package com.training.ediary.application.service;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.training.ediary.application.transform.AbsentTransform;
+import com.training.ediary.application.webdomain.request.AbsentAddRequest;
 import com.training.ediary.domain.Absent;
 import com.training.ediary.domain.InClass;
 import com.training.ediary.domain.TakingSubject;
@@ -22,16 +21,16 @@ import com.training.ediary.domain.repository.InClassRepo;
 public class AbsentService {
 
 	@Autowired
-	TakingSubjectService takingSubjectService;
+	private TakingSubjectService takingSubjectService;
 	
 	@Autowired
-	EdiaryUserService ediaryUserService;
+    private EdiaryUserService ediaryUserService;
 	
 	@Autowired
-	EdiaryService ediaryService;
+	private EdiaryService ediaryService;
 	
 	@Autowired
-	CreateData createData;
+	private AbsentTransform absentTransform;
 	
 	@Autowired
 	private InClassRepo inClassRepo;
@@ -56,18 +55,18 @@ public class AbsentService {
 		return "deniedPage";
 	}
 	
-	public String addAbsent(int takingSubjectId, LocalDateTime absentDate, Date absentEndTime, HttpServletRequest request){
-		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(takingSubjectId);
+	public String addAbsent(AbsentAddRequest absentAddRequest, HttpServletRequest request){
+		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(absentAddRequest.getTakingSubjectId());
 		Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 		if(selectedId.isPresent())
 		{
 			TakingSubject takingSubject = selectedId.get();
 			if(loginTeacher.getEdiaryUserId() == takingSubject.getTeacher().getEdiaryUserId())
 			{				
-				if(ediaryService.isCurrentSemester(takingSubject.getSchoolYear()) && ediaryService.outDate(absentDate, 3))
+				if(ediaryService.isCurrentSemester(takingSubject.getSchoolYear()) && ediaryService.outDate(absentAddRequest.getAbsentDate(), 3))
 				{
-					Absent absent = createData.createAbsent(absentDate, ediaryService.convertTime(absentEndTime));
-					takingSubject.setAbsents(createData.addAbsent(takingSubject.getAbsents(), absent));
+					Absent absent = absentTransform.transformAbsentAddRequest(absentAddRequest);
+					takingSubject.getAbsents().add(absent);
 					absentRepo.save(absent);
 					return "redirect:/teacherPage/succesfullchange";
 				}

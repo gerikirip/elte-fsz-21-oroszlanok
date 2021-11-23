@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.training.ediary.application.service.MarkService;
+import com.training.ediary.application.webdomain.request.MarkAddRequest;
+import com.training.ediary.application.webdomain.request.MarkChangeRequest;
 
 @Controller
 public class MarkController {
@@ -21,14 +23,15 @@ public class MarkController {
 	@Autowired
 	private MarkService markService;
 	
+	
 	@GetMapping("/teacherMarkChange/{id}")
 	public String markView(Model model, @PathVariable(name="id") int markId, HttpServletRequest request) {		
 		return markService.markChangeView(model, markId, request);
 	}
 	
 	@PostMapping("/teacherMarkChange")
-	public String markChange(@RequestParam int markId, @RequestParam int markScore, HttpServletRequest request){
-		return markService.markChange(markId, markScore, request);
+	public String markChange(MarkChangeRequest markChangeRequest, HttpServletRequest request){
+		return markService.markChange(markChangeRequest, request);
 	}
 	
 	@GetMapping("/teacherMarkAdd/{id}")
@@ -37,7 +40,7 @@ public class MarkController {
 	}
 	
 	@PostMapping("/teacherMarkAdd")
-	public String markAdd(@RequestParam int takingSubjectId, @RequestParam int markScore, HttpServletRequest request){
-		return markService.markAdd(takingSubjectId, markScore, request);
+	public String markAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
+		return markService.markAdd(markAddRequest, request);
 	}
 }

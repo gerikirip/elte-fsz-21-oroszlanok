@@ -1,7 +1,5 @@
 package com.training.ediary.application.service;
 
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
@@ -10,21 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.training.ediary.application.transform.MarkTransform;
+import com.training.ediary.application.webdomain.request.MarkAddRequest;
+import com.training.ediary.application.webdomain.request.MarkChangeRequest;
 import com.training.ediary.domain.InClass;
 import com.training.ediary.domain.Mark;
 import com.training.ediary.domain.MarkHistory;
-import com.training.ediary.domain.SchoolYear;
 import com.training.ediary.domain.TakingSubject;
 import com.training.ediary.domain.Teacher;
 import com.training.ediary.domain.repository.InClassRepo;
 import com.training.ediary.domain.repository.MarkHistoryRepo;
 import com.training.ediary.domain.repository.MarkRepo;
-import com.training.ediary.domain.repository.TakingSubjectRepo;
 
 @Service
 public class MarkService {
@@ -39,9 +34,6 @@ public class MarkService {
 	private EdiaryUserService ediaryUserService;
 	
 	@Autowired
-	private CreateData createData;
-	
-	@Autowired
 	private EdiaryService ediaryService;
 	
 	@Autowired
@@ -49,6 +41,9 @@ public class MarkService {
 	
 	@Autowired
 	private InClassRepo inClassRepo;
+	
+	@Autowired
+	private MarkTransform markTransformer;
 	
 	public Optional<Mark> selectedMark(int id){
 		return markRepo.findById(id);
@@ -69,18 +64,18 @@ public class MarkService {
 		return "deniedPage";
 	}
 	
-	public String markChange(int markId, int markScore, HttpServletRequest request)
+	public String markChange(MarkChangeRequest markChangeRequest, HttpServletRequest request)
 	{
-			TakingSubject takingSubject = takingSubjectService.takingSubjectIdByMarkId(markId);
+			TakingSubject takingSubject = takingSubjectService.takingSubjectIdByMarkId(markChangeRequest.getMarkId());
 			Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 			if(loginTeacher.getEdiaryUserId() == takingSubject.getTeacher().getEdiaryUserId()) 
 			{
 				if(ediaryService.isCurrentSemester(takingSubject.getSchoolYear()))
 				{
 					MarkHistory markHistory = new MarkHistory();
-					Mark changeMark = selectedMark(markId).get();
+					Mark changeMark = selectedMark(markChangeRequest.getMarkId()).get();
 					markHistory.setPreChangedMark(changeMark.getMarkScore());
-					changeMark.setMarkScore(markScore);
+					changeMark.setMarkScore(markChangeRequest.getMarkScore());
 					markHistory.setPostChangedMark(changeMark.getMarkScore());
 					markHistory.setChangeDate(new Date());
 					markHistory = markHistoryRepo.save(markHistory);
@@ -109,8 +104,8 @@ public class MarkService {
 		return "deniedPage";
 	}
 	
-	public String markAdd(int takingSubjectId, int markScore, HttpServletRequest request){
-		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(takingSubjectId);
+	public String markAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
+		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(markAddRequest.getTakingSubjectId());
 		Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 		if(selectedId.isPresent())
 		{
@@ -119,10 +114,8 @@ public class MarkService {
 			{				
 				if(ediaryService.isCurrentSemester(takingSubject.getSchoolYear()))
 				{
-					Mark mark = createData.createMark(markScore, ediaryService.getCurrentMonth());
-			        takingSubject.setMarks(createData.addMark(takingSubject.getMarks(), mark));
-			        
-			        //createData.createMark(markScore, ediaryService.getCurrentMonth());
+					Mark mark = markTransformer.transorfMarkAddRequest(markAddRequest);
+					takingSubject.getMarks().add(mark);
 					markRepo.save(mark);
 					return "redirect:/teacherPage/succesfullchange";
 				}

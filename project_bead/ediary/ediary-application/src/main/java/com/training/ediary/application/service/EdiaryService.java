@@ -59,43 +59,4 @@ public class EdiaryService {
 		Time time = new Time(date.getTime());
 		return time;
 	}
-	/*
-	public double markAvg(List<Mark> marks, boolean firstSemester) {
-		double avg = 0.0;
-		double markCount = 0.0;
-		for(Mark mark : marks) {
-			if(firstSemester && mark.getMonth() > 8 && mark.getMonth() < 13) {
-				avg += mark.getMarkScore();
-				markCount++;
-			}
-			else if(!firstSemester && mark.getMonth() > 0 && mark.getMonth() < 8) {
-				avg += mark.getMarkScore();
-				markCount++;
-			}
-		}
-		
-		if(markCount == 0)
-		{
-			return 0;
-		}
-		
-		return avg / markCount;
-	}
-	
-	public double markAvgAll(List<Mark> marks) {
-		double avg = 0.0;
-		double markCount = 0.0;
-		for(Mark mark : marks) {
-			avg += mark.getMarkScore();
-			markCount++;
-		}
-		
-		if(markCount == 0)
-		{
-			return 0;
-		}
-		
-		return avg / markCount;
-	}
-	*/
 }

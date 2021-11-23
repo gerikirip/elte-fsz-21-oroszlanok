@@ -31,13 +31,10 @@ public class TakingSubjectService {
 	private SubjectService subjectService;
 	
 	@Autowired
-	private InClassService inClassService;
+	private StudentService studentService;
 	
 	@Autowired
 	private MarkService markService;
-	
-	@Autowired
-	private EdiaryService ediaryService;
 	
 	public Optional<TakingSubject> selectedId(int id){
 		return takingSubjectRepo.findById(id);
@@ -61,7 +58,7 @@ public class TakingSubjectService {
 	
 	public List<TakingSubject> takingSubjectFiltered(HttpServletRequest request, int selectSubject, int selectYear, int selectSchoolClass){
 		List<TakingSubject> takingSubjectFiltered = new ArrayList<>();
-		List<Student> studentList = inClassService.studentListBySchoolClass(selectYear, selectSchoolClass);		
+		List<Student> studentList = studentService.studentListBySchoolClass(selectYear, selectSchoolClass);		
 		List<TakingSubject> takingSubjects = findBySubjectAndSchoolYearAndTeacher(request, selectSubject, selectYear);
 		for(TakingSubject takingSubject : takingSubjects)
 		{

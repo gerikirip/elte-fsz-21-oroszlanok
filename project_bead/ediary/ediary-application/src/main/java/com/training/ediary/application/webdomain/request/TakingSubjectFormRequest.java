@@ -1,10 +1,10 @@
-package com.training.ediary.application.webdomain;
+package com.training.ediary.application.webdomain.request;
 
 
-public class TakingSubjectRequest {
-	int selectSubject;
-	int selectYear;
-	int selectSchoolClass;
+public class TakingSubjectFormRequest {
+	private int selectSubject;
+	private int selectYear;
+	private int selectSchoolClass;
 	public int getSelectSubject() {
 		return selectSubject;
 	}

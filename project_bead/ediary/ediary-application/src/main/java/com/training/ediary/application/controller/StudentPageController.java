@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.training.ediary.application.service.SchoolYearService;
 import com.training.ediary.application.service.TakingSubjectService;
+import com.training.ediary.application.transform.view.SchoolYearViewTransform;
+import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
 
 
 
@@ -24,17 +26,23 @@ public class StudentPageController {
 	@Autowired
 	private TakingSubjectService takingSubjectService;
 	
+	@Autowired
+	private TakingSubjectViewTransform takingSubjectViewTransform;
+	
+	@Autowired
+	private SchoolYearViewTransform schoolYearViewTransform;
+	
 	@GetMapping("/studentPage")
 	public String studentPage(Model model) {
-		model.addAttribute("schoolYears",schoolYearService.schoolYears());
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		return "studentView/studentPage";
 	}
 	
 	@PostMapping("/studentPage")
 	public String studentPageWithMark(@RequestParam int selectYear, Model model, HttpServletRequest request) {	
 
-		model.addAttribute("takingSubjects", takingSubjectService.takingSubjectsByStudent(request, selectYear));		
-		model.addAttribute("schoolYears",schoolYearService.schoolYears());
+		model.addAttribute("takingSubjects", takingSubjectViewTransform.takingSubjectListTransform(takingSubjectService.takingSubjectsByStudent(request, selectYear)));		
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		model.addAttribute("selectedYear",selectYear);
 		return "studentView/studentPage";
 	}

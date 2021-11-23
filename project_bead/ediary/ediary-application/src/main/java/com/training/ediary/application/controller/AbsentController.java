@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.training.ediary.application.service.AbsentService;
+import com.training.ediary.application.webdomain.request.AbsentAddRequest;
 
 @Controller
 public class AbsentController {
@@ -29,7 +30,7 @@ public class AbsentController {
 	}
 	
 	@PostMapping("/teacherAbsent")
-	public String markAdd(@RequestParam int takingSubjectId, @RequestParam   @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime absentDate, @RequestParam @DateTimeFormat(pattern = "HH:mm") Date absentEndTime, HttpServletRequest request){
-		return absentService.addAbsent(takingSubjectId, absentDate, absentEndTime, request);
+	public String markAdd(AbsentAddRequest absentAddRequest, HttpServletRequest request){
+		return absentService.addAbsent(absentAddRequest, request);
 	}
 }

@@ -14,7 +14,7 @@ import com.training.ediary.domain.repository.InClassRepo;
 
 
 @Service
-public class InClassService {
+public class StudentService {
 	
 	@Autowired
 	private InClassRepo inClassRepo;

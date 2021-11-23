@@ -21,7 +21,7 @@ public class AppUserDetailsService implements UserDetailsService{
 		EdiaryUser user = ediaryUserRepo.findByUsername(username);
 		
 		if(user == null) {
-			throw new UsernameNotFoundException("Hibas user!"); 
+			throw new UsernameNotFoundException("Hibás felhasználó!"); 
 		}	
 		return new EdiaryUserDetails(user);
 	}

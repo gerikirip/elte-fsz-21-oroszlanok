@@ -18,7 +18,12 @@ import com.training.ediary.application.service.SchoolClassService;
 import com.training.ediary.application.service.SchoolYearService;
 import com.training.ediary.application.service.SubjectService;
 import com.training.ediary.application.service.TakingSubjectService;
-import com.training.ediary.application.webdomain.TakingSubjectRequest;
+import com.training.ediary.application.transform.view.SchoolClassViewTransform;
+import com.training.ediary.application.transform.view.SchoolYearViewTransform;
+import com.training.ediary.application.transform.view.SubjectViewTransform;
+import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
+import com.training.ediary.application.webdomain.request.TakingSubjectFormRequest;
+import com.training.ediary.application.webdomain.view.TakingSubjectView;
 import com.training.ediary.domain.TakingSubject;
 import com.training.ediary.domain.repository.TakingSubjectRepo;
 
@@ -41,6 +46,18 @@ public class TeacherPageController {
 	@Autowired
 	private EdiaryService ediaryService;
 	
+	@Autowired
+	private TakingSubjectViewTransform takingSubjectViewTransform;
+	
+	@Autowired
+	private SubjectViewTransform subjectViewTransform;
+	
+	@Autowired
+	private SchoolYearViewTransform schoolYearViewTransform;
+	
+	@Autowired
+	private SchoolClassViewTransform schoolClassViewTransform;
+	
 	@GetMapping("/teacherPage")
 	public String teacherPage(Model model, HttpServletRequest request, HttpSession session) {
 		Integer choosenSubject = (Integer)session.getAttribute("choosenSubject");
@@ -48,14 +65,16 @@ public class TeacherPageController {
 		Integer choosenClass = (Integer)session.getAttribute("choosenClass");
 		if(choosenSubject != null && choosenYears != null && choosenClass != null)
 		{
-			List<TakingSubject> takingSubjectFiltered = takingSubjectService.takingSubjectFiltered(request, choosenSubject, choosenYears, choosenClass);
+			List<TakingSubjectView> takingSubjectFiltered = takingSubjectViewTransform.
+					takingSubjectListTransform(takingSubjectService.
+							takingSubjectFiltered(request, choosenSubject, choosenYears, choosenClass));				
 			model.addAttribute("takingSubjects",takingSubjectFiltered);
 			model.addAttribute("isCurrentSemester", ediaryService.isCurrentSemester(schoolYearService.selectedYear(choosenYears).get()));
 		}		
 		model.addAttribute("alert",null);	
-		model.addAttribute("teacherSubjects",subjectService.teacherSubjectList(request));
-		model.addAttribute("schoolYears",schoolYearService.schoolYears());
-		model.addAttribute("schoolClasses",schoolClassService.schoolClasses());
+		model.addAttribute("teacherSubjects",subjectViewTransform.subjectListTransform(subjectService.teacherSubjectList(request)));
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
+		model.addAttribute("schoolClasses", schoolClassViewTransform.schoolClassListTransform(schoolClassService.schoolClasses()));
 		
 		model.addAttribute("choosenSubject",choosenSubject);
 		model.addAttribute("choosenYears", choosenYears);
@@ -70,36 +89,40 @@ public class TeacherPageController {
 		Integer choosenClass = (Integer)session.getAttribute("choosenClass");
 		if(choosenSubject != null && choosenYears != null && choosenClass != null)
 		{
-			List<TakingSubject> takingSubjectFiltered = takingSubjectService.takingSubjectFiltered(request, choosenSubject, choosenYears, choosenClass);
+			List<TakingSubjectView> takingSubjectFiltered = takingSubjectViewTransform.
+					takingSubjectListTransform(takingSubjectService.
+							takingSubjectFiltered(request, choosenSubject, choosenYears, choosenClass));				
 			model.addAttribute("takingSubjects",takingSubjectFiltered);
 			model.addAttribute("isCurrentSemester", ediaryService.isCurrentSemester(schoolYearService.selectedYear(choosenYears).get()));
 		}
 		
 		model.addAttribute("alert","Sikeres mentés!");	
-		model.addAttribute("teacherSubjects",subjectService.teacherSubjectList(request));
-		model.addAttribute("schoolYears",schoolYearService.schoolYears());
-		model.addAttribute("schoolClasses",schoolClassService.schoolClasses());
+		model.addAttribute("teacherSubjects",subjectViewTransform.subjectListTransform(subjectService.teacherSubjectList(request)));
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
+		model.addAttribute("schoolClasses", schoolClassViewTransform.schoolClassListTransform(schoolClassService.schoolClasses()));
 		return "teacherView/teacherPage";
 	}
 	
 	@PostMapping("/teacherPage")
-	public String teacherPageWithMarks(TakingSubjectRequest takingSubjectRequest,  HttpSession session,  Model model, HttpServletRequest request) {	
+	public String teacherPageWithMarks(TakingSubjectFormRequest takingSubjectRequest,  HttpSession session,  Model model, HttpServletRequest request) {	
 		System.out.println(takingSubjectRequest.getSelectSubject());
 		
 		session.setAttribute("choosenSubject", takingSubjectRequest.getSelectSubject());
 		session.setAttribute("choosenYears", takingSubjectRequest.getSelectYear());
 		session.setAttribute("choosenClass", takingSubjectRequest.getSelectSchoolClass());
 		
-		List<TakingSubject> takingSubjectFiltered = takingSubjectService.takingSubjectFiltered(request, takingSubjectRequest.getSelectSubject(), takingSubjectRequest.getSelectYear(), takingSubjectRequest.getSelectSchoolClass());
+		List<TakingSubjectView> takingSubjectFiltered = takingSubjectViewTransform.
+				takingSubjectListTransform(takingSubjectService.
+						takingSubjectFiltered(request, takingSubjectRequest.getSelectSubject(), takingSubjectRequest.getSelectYear(), takingSubjectRequest.getSelectSchoolClass()));
 		
 		model.addAttribute("choosenSubject",(int)session.getAttribute("choosenSubject"));
 		model.addAttribute("choosenYears",(int)session.getAttribute("choosenYears"));
 		model.addAttribute("choosenClass",(int)session.getAttribute("choosenClass"));
-		model.addAttribute("teacherSubjects",subjectService.teacherSubjectList(request));
+		model.addAttribute("teacherSubjects",subjectViewTransform.subjectListTransform(subjectService.teacherSubjectList(request)));
 		model.addAttribute("selectedSubject", takingSubjectRequest.getSelectSubject());
-		model.addAttribute("schoolYears",schoolYearService.schoolYears());
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		model.addAttribute("selectedYear",takingSubjectRequest.getSelectYear());
-		model.addAttribute("schoolClasses",schoolClassService.schoolClasses());
+		model.addAttribute("schoolClasses", schoolClassViewTransform.schoolClassListTransform(schoolClassService.schoolClasses()));
 		model.addAttribute("selectedSchoolClass",takingSubjectRequest.getSelectSchoolClass());
 		model.addAttribute("isCurrentSemester", ediaryService.isCurrentSemester(schoolYearService.selectedYear(takingSubjectRequest.getSelectYear()).get()));
 		

@@ -20,7 +20,6 @@ public class TakingSubject {
 	@GeneratedValue
 	private int takingSubjectId;
 	
-	//@ManyToOne
 	@OneToOne 
 	private SchoolYear schoolYear;
 	
@@ -45,6 +44,7 @@ public class TakingSubject {
 	private Boolean suYear;
 	
 	private int endMark;
+	
 	
 	public double getFirstAvg() {
 		double avg = 0.0;
@@ -79,6 +79,7 @@ public class TakingSubject {
 		
 		return avg / markCount;
 	}
+	
 	
 	public int getEndMark() {
 		return endMark;
