@@ -2,8 +2,10 @@ package com.training.ediary.application.service;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.hibernate.validator.constraints.ISBN;
 import org.springframework.stereotype.Component;
@@ -116,12 +118,6 @@ public class CreateData {
 		return mark;
 	}
 	
-	public List<Mark> addMark(List<Mark> marks, Mark mark)
-	{
-		marks.add(mark);
-		return marks;
-	}
-	
 	public Absent createAbsent(LocalDateTime date, Time endTime)
 	{
 		Absent absent = new Absent();
@@ -130,9 +126,19 @@ public class CreateData {
 		return absent;
 	}
 	
-	public List<Absent> addAbsent(List<Absent> absents, Absent absent)
-	{
-		absents.add(absent);
-		return absents;
+	public List<Mark> createRandomMark(int min, int max) {
+		Random random = new Random();
+		List<Mark> marks = new ArrayList<Mark>();
+		for(int i = 1; i < 13; i++) {
+			int randomMark1 = random.nextInt(max - min + 1) + min;
+			marks.add(createMark(randomMark1, i));
+			
+			int randomMark2 = random.nextInt(max - min + 1) + min;
+			marks.add(createMark(randomMark2, i));
+			
+			int randomMark3 = random.nextInt(max - min + 1) + min;
+			marks.add(createMark(randomMark3, i));
+		}
+		return marks;
 	}
 }
