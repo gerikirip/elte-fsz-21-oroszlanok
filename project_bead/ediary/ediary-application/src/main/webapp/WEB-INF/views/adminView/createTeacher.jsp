@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a href="/adminPage/schoolYearCreate"><input type="button" class="btn btn-outline-light" value="Évfolyam hozzáadása"></a>
+              <a href="/adminPage/creatschoolYear"><input type="button" class="btn btn-outline-light" value="Évfolyam hozzáadása"></a>
             </li>
             <li class="nav-item">
               	<a href="/adminPage/createSchoolClass"><input type="button" class="btn btn-outline-light" value="Osztály hozzáadása"></a>
