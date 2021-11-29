@@ -37,6 +37,33 @@ public class StudentPageController {
 		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		return "studentView/studentPage";
 	}
+	@GetMapping("/studentPage/studentData")
+    public String studentData(Model model) {
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
+        return "studentView/studentData";
+    }
+	@PostMapping("/studentPage/studentData")
+	public String studentPageWithMark2(@RequestParam int selectYear, Model model, HttpServletRequest request) {	
+
+		model.addAttribute("takingSubjects", takingSubjectViewTransform.takingSubjectListTransform(takingSubjectService.takingSubjectsByStudent(request, selectYear)));		
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
+		model.addAttribute("selectedYear",selectYear);
+		return "studentView/studentData";
+	}
+	
+	@GetMapping("/studentPage/studentAbsent")
+    public String studentAbsent(Model model) {
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
+        return "studentView/studentAbsent";
+    }
+	@PostMapping("/studentPage/studentAbsent")
+	public String studentPageWithMark3(@RequestParam int selectYear, Model model, HttpServletRequest request) {	
+
+		model.addAttribute("takingSubjects", takingSubjectViewTransform.takingSubjectListTransform(takingSubjectService.takingSubjectsByStudent(request, selectYear)));		
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
+		model.addAttribute("selectedYear",selectYear);
+		return "studentView/studentAbsent";
+	}
 	
 	@PostMapping("/studentPage")
 	public String studentPageWithMark(@RequestParam int selectYear, Model model, HttpServletRequest request) {	
