@@ -19,6 +19,23 @@ public class Absent {
 	
 	private Time endTime;
 	
+	private boolean authAbsent;
+	
+	private Date authAbsentDate;
+	
+	public boolean isAuthAbsent() {
+		return authAbsent;
+	}
+	public void setAuthAbsent(boolean authAbsent) {
+		this.authAbsent = authAbsent;
+	}
+	public Date getAuthAbsentDate() {
+		return authAbsentDate;
+	}
+	public void setAuthAbsentDate(Date authAbsentDate) {
+		this.authAbsentDate = authAbsentDate;
+	}
+
 	public int getId() {
 		return id;
 	}

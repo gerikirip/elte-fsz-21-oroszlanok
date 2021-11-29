@@ -47,10 +47,6 @@ public class Mark {
 		this.createDate = createDate;
 	}
 	
-	public String getShortDate() {
-		return createDate.toString().split("\\.")[0];
-	}
-	
 	@OneToMany
 	private List<MarkHistory> markHistories;
 	

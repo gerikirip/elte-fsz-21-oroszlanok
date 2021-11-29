@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.training.ediary.application.transform.MarkTransform;
+import com.training.ediary.application.transform.view.InClassViewTransform;
+import com.training.ediary.application.transform.view.MarkViewTransform;
+import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
 import com.training.ediary.application.webdomain.request.MarkAddRequest;
 import com.training.ediary.application.webdomain.request.MarkChangeRequest;
 import com.training.ediary.domain.InClass;
@@ -45,6 +48,15 @@ public class MarkService {
 	@Autowired
 	private MarkTransform markTransformer;
 	
+	@Autowired
+	private TakingSubjectViewTransform takingSubjectViewTransform;
+	
+	@Autowired
+	private InClassViewTransform inClassViewTransform;
+	
+	@Autowired
+	private MarkViewTransform markViewTransform;
+	
 	public Optional<Mark> selectedMark(int id){
 		return markRepo.findById(id);
 	}
@@ -56,9 +68,9 @@ public class MarkService {
 		if(loginTeacher.getEdiaryUserId() == takingSubject.getTeacher().getEdiaryUserId()) 
 		{
 			model.addAttribute("isCurrentSemester", ediaryService.isCurrentSemester(takingSubject.getSchoolYear()));
-			model.addAttribute("mark",selectedMark(markId).get());
-			model.addAttribute("takingSubject",takingSubject);
-			model.addAttribute("studentClass",studentClass.getSchoolClass().getClassName());
+			model.addAttribute("mark", markViewTransform.markTransform(selectedMark(markId).get()));
+			model.addAttribute("takingSubject",takingSubjectViewTransform.takingSubjectTransform(takingSubject));
+			model.addAttribute("studentClass",inClassViewTransform.inClassTransform(studentClass));
 			return "teacherView/teacherMarkChange";
 		}
 		return "deniedPage";
@@ -96,8 +108,8 @@ public class MarkService {
 			InClass studentClass = inClassRepo.findByStudentAndSchoolYear(takingSubject.getStudent(),takingSubject.getSchoolYear());
 			if(loginTeacher.getEdiaryUserId() == takingSubject.getTeacher().getEdiaryUserId())
 			{
-				model.addAttribute("takingSubject",takingSubject);
-				model.addAttribute("studentClass",studentClass.getSchoolClass().getClassName());
+				model.addAttribute("takingSubject",takingSubjectViewTransform.takingSubjectTransform(takingSubject));
+				model.addAttribute("studentClass",inClassViewTransform.inClassTransform(studentClass));
 				return "teacherView/teacherMarkAdd";
 			}
 		}

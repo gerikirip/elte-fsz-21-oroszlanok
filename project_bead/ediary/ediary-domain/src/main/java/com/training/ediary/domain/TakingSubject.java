@@ -35,9 +35,6 @@ public class TakingSubject {
 	@OneToMany
 	private List<Absent> absents;
 	
-	@OneToMany
-	private List<authAbsent> authAbsents;
-	
 	@OneToMany(cascade = {CascadeType.ALL})
 	private List<Mark> marks = new ArrayList<>();
 	
@@ -147,13 +144,5 @@ public class TakingSubject {
 
 	public void setAbsents(List<Absent> absents) {
 		this.absents = absents;
-	}
-
-	public List<authAbsent> getAuthAbsents() {
-		return authAbsents;
-	}
-
-	public void setAuthAbsents(List<authAbsent> authAbsents) {
-		this.authAbsents = authAbsents;
 	}
 }

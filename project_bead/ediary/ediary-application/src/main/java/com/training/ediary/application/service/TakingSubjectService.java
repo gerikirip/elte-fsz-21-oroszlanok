@@ -56,6 +56,13 @@ public class TakingSubjectService {
 		return null;
 	}
 	
+	public List<TakingSubject> findBySchoolYearAndTeacher(HttpServletRequest request, int selectYear){
+		if(schoolYearService.selectedYear(selectYear).isPresent() && ediaryUserService.loginUser(request) != null){
+			return takingSubjectRepo.findBySchoolYearAndTeacher(schoolYearService.selectedYear(selectYear).get(), (Teacher)ediaryUserService.loginUser(request));
+		}
+		return null;
+	}
+	
 	public List<TakingSubject> takingSubjectFiltered(HttpServletRequest request, int selectSubject, int selectYear, int selectSchoolClass){
 		List<TakingSubject> takingSubjectFiltered = new ArrayList<>();
 		List<Student> studentList = studentService.studentListBySchoolClass(selectYear, selectSchoolClass);		

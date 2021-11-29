@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.training.ediary.application.service.EdiaryService;
+import com.training.ediary.application.service.InClassService;
 import com.training.ediary.application.service.SchoolClassService;
 import com.training.ediary.application.service.SchoolYearService;
 import com.training.ediary.application.service.SubjectService;
 import com.training.ediary.application.service.TakingSubjectService;
+import com.training.ediary.application.transform.view.InClassViewTransform;
 import com.training.ediary.application.transform.view.SchoolClassViewTransform;
 import com.training.ediary.application.transform.view.SchoolYearViewTransform;
 import com.training.ediary.application.transform.view.SubjectViewTransform;
@@ -47,6 +49,9 @@ public class TeacherPageController {
 	private EdiaryService ediaryService;
 	
 	@Autowired
+	private InClassService inClassService;
+	
+	@Autowired
 	private TakingSubjectViewTransform takingSubjectViewTransform;
 	
 	@Autowired
@@ -57,6 +62,9 @@ public class TeacherPageController {
 	
 	@Autowired
 	private SchoolClassViewTransform schoolClassViewTransform;
+	
+	@Autowired
+	private InClassViewTransform inClassViewTransform;
 	
 	@GetMapping("/teacherPage")
 	public String teacherPage(Model model, HttpServletRequest request, HttpSession session) {
@@ -75,10 +83,12 @@ public class TeacherPageController {
 		model.addAttribute("teacherSubjects",subjectViewTransform.subjectListTransform(subjectService.teacherSubjectList(request)));
 		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		model.addAttribute("schoolClasses", schoolClassViewTransform.schoolClassListTransform(schoolClassService.schoolClasses()));
+		model.addAttribute("inClasses", inClassViewTransform.inClassListTransform(inClassService.getInClassesByHeadTeacher(request)));
 		
 		model.addAttribute("choosenSubject",choosenSubject);
 		model.addAttribute("choosenYears", choosenYears);
 		model.addAttribute("choosenClass", choosenClass);
+		
 		return "teacherView/teacherPage";
 	}
 	
@@ -105,7 +115,6 @@ public class TeacherPageController {
 	
 	@PostMapping("/teacherPage")
 	public String teacherPageWithMarks(TakingSubjectFormRequest takingSubjectRequest,  HttpSession session,  Model model, HttpServletRequest request) {	
-		System.out.println(takingSubjectRequest.getSelectSubject());
 		
 		session.setAttribute("choosenSubject", takingSubjectRequest.getSelectSubject());
 		session.setAttribute("choosenYears", takingSubjectRequest.getSelectYear());

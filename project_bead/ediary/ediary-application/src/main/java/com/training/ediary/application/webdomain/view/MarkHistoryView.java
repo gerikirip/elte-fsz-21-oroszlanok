@@ -1,16 +1,9 @@
-package com.training.ediary.domain;
+package com.training.ediary.application.webdomain.view;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+public class MarkHistoryView {
 
-@Entity
-public class MarkHistory {
-
-	@Id
-	@GeneratedValue
 	private int id;
 	
 	private Date changeDate;
@@ -40,5 +33,9 @@ public class MarkHistory {
 	}
 	public void setPostChangedMark(int postChangedMark) {
 		this.postChangedMark = postChangedMark;
+	}
+	
+	public String getShortDate() {
+		return changeDate.toString().split("\\.")[0];
 	}
 }

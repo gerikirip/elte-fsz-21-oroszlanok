@@ -25,6 +25,12 @@
             <li class="nav-item active">
               <a href="/teacherPage"><input type="button" class="btn btn-outline-light" value="Napló"></a>
             </li>
+            <c:if test="${inClasses.size() != 0}">
+	            <li class="nav-item active">
+	              <a href="/teacherAuthAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzás Igazolása"></a>
+	            </li>
+            </c:if>
+            
             <li class="nav-item">
                <form:form action="/logout" method="POST">
               	<input type="submit" class="btn btn-outline-light" value="Kijelentkezés">
@@ -77,8 +83,7 @@
                 <th scope="col">Május</th>
                 <th scope="col">Június</th>
                 <th scope="col">II. félév</th>
-                <th scope="col">Lezárt jegy</th>
-  
+                <th scope="col">Lezárt jegy</th>  
             </tr>
             </thead>
             	<tbody>

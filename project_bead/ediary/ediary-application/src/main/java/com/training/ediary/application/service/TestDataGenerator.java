@@ -69,8 +69,10 @@ public class TestDataGenerator {
 		
         Teacher teacher1 = createData.createTeacher("teach@teacher.com", passwordEncoder.encode("123"), "Jani", "Teacher");
         Teacher teacher2 = createData.createTeacher("feriteach@teacher.com", passwordEncoder.encode("123"), "Feri", "FeriTeacher");
+        Teacher teacher3 = createData.createTeacher("a@a.com", passwordEncoder.encode("123"), "Test", "TestTeacher");
         teacherRepo.save(teacher1);
         teacherRepo.save(teacher2);
+        teacherRepo.save(teacher3);
         
         Student student1 = createData.createStudent("student@student.com", passwordEncoder.encode("123"), "Peti", "Stud");
         studentRepo.save(student1);

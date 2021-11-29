@@ -21,6 +21,8 @@ public interface TakingSubjectRepo extends JpaRepository<TakingSubject, Integer>
 	
 	public List<TakingSubject> findBySubjectAndSchoolYearAndTeacher(Subject subject, SchoolYear schoolYear, Teacher teacher);
 	
+	public List<TakingSubject> findBySchoolYearAndTeacher(SchoolYear schoolYear, Teacher teacher);
+	
 	@Query("select takingsubject from TakingSubject takingsubject where :mark member of takingsubject.marks")
 	public TakingSubject findTakingSubjectIdByMarkId(@Param("mark") Mark markId);
 }

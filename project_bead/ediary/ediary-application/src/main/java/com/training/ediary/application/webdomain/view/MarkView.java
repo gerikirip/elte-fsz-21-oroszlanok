@@ -1,6 +1,9 @@
 package com.training.ediary.application.webdomain.view;
 
 import java.util.Date;
+import java.util.List;
+
+import com.training.ediary.domain.MarkHistory;
 
 public class MarkView {
 	
@@ -8,6 +11,7 @@ public class MarkView {
 	private int markScore;
 	private int month;
 	private Date createDate;
+	private List<MarkHistoryView> markHistories;
 	
 	public int getMarkId() {
 		return markId;
@@ -34,5 +38,15 @@ public class MarkView {
 		this.createDate = createDate;
 	}
 	
+	public List<MarkHistoryView> getMarkHistories() {
+		return markHistories;
+	}
 	
+	public void setMarkHistories(List<MarkHistoryView> markHistories) {
+		this.markHistories = markHistories;
+	}
+	
+	public String getShortDate() {
+		return createDate.toString().split("\\.")[0];
+	}
 }

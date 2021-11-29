@@ -34,19 +34,35 @@
       </nav>
 
      <div class="container">
-        <div class="col-sm-2 my-3">
-           	<div>Név: ${takingSubject.student.name}</div>
-        	<div>Tantárgy: ${takingSubject.subject.subjectName}</div>
-        	<div>Évfolyam: ${takingSubject.schoolYear.startSchoolYear}/${takingSubject.schoolYear.endSchoolYear}</div>
-        	<div>Osztály: ${studentClass}</div>
-			
-			<form:form  action="/teacherAbsent" method="POST">
-            Hiányzott óra dátuma:
-            <input type="datetime-local" name="absentDate"> - <input type="time" name="absentEndTime">
-            <input type="hidden" name="takingSubjectId" value="${takingSubject.takingSubjectId}">
-            <input type="submit" class="btn btn-primary" value="Beírás">
-            </form:form>
-        </div>
+        
+        <form:form  action="/teacherAuthAbsent" method="POST">
+           Tanév:
+          	<select class="form-control form-control-sm" name="selectYear">
+               <c:forEach items="${schoolYears}" var="schoolYear">
+                	<option value="${schoolYear.schoolYearId}" ${absentChoosenYear == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
+               </c:forEach>
+            </select>
+            <input type="submit" class="btn btn-primary" value="Kiválasztása">
+         </form:form>
+        
+         <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Név:</th>
+                <th scope="col">Hiányzás:</th>
+            </tr>
+            </thead>
+	            <tbody>
+	                <c:forEach items="${takingSubjects}" var="takingSubject">
+	                <c:forEach items="${takingSubject.absents}" var="absent">
+	               	<tr>
+	 				    <td>${takingSubject.student.name}</td>
+	 				    <td>${absent.cleanDate} - ${absent.endTime}</td>					
+					</tr>
+					</c:forEach>
+					</c:forEach>
+	            </tbody>
+            </table>
     </div>
   </body>
 </html>

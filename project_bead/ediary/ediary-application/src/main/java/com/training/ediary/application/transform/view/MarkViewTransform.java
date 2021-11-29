@@ -3,13 +3,18 @@ package com.training.ediary.application.transform.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.training.ediary.application.webdomain.view.MarkView;
 import com.training.ediary.domain.Mark;
 
+
 @Service
 public class MarkViewTransform {
+	
+	@Autowired
+	MarkHistoryViewTransform markHistoryViewTransform;
 	
 	public MarkView markTransform(Mark mark){
 		MarkView markView = new MarkView();
@@ -17,6 +22,7 @@ public class MarkViewTransform {
 		markView.setMarkScore(mark.getMarkScore());
 		markView.setMonth(mark.getMonth());
 		markView.setCreateDate(mark.getCreateDate());
+		markView.setMarkHistories(markHistoryViewTransform.markHistoryListTransform(mark.getMarkHistories()));
 		return markView;
 	}
 	

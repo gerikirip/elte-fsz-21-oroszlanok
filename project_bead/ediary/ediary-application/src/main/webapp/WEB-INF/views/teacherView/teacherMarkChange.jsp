@@ -38,7 +38,7 @@
         	<div>Név: ${takingSubject.student.name}</div>
         	<div>Tantárgy: ${takingSubject.subject.subjectName}</div>
         	<div>Évfolyam: ${takingSubject.schoolYear.startSchoolYear}/${takingSubject.schoolYear.endSchoolYear}</div>
-        	<div>Osztály: ${studentClass}</div>
+        	<div>Osztály:  ${studentClass.schoolClass.className}</div>
         	<c:if test="${isCurrentSemester && takingSubject.suYear == null}"> 
 	            <form:form  action="/teacherMarkChange" method="POST">
 	           		<input type="number" name="markScore" min="1" max="5" value="${mark.markScore}">
@@ -48,7 +48,7 @@
             </c:if>
         </div>
         
-        <div>A jegy ekkor került be: ${mark.getShortDate()}</div>
+        <div>A jegy ekkor került be: ${mark.shortDate}</div>
          <table class="table">
             <thead>
             <tr>

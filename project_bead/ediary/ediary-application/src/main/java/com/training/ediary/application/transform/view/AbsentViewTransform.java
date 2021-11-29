@@ -17,6 +17,8 @@ public class AbsentViewTransform {
 		absentView.setId(absent.getId());
 		absentView.setDate(absent.getDate());
 		absentView.setEndTime(absent.getEndTime());
+		absentView.setAuthAbsent(absent.isAuthAbsent());
+		absentView.setAuthAbsentDate(absent.getAuthAbsentDate());
 		return absentView;
 	}
 	

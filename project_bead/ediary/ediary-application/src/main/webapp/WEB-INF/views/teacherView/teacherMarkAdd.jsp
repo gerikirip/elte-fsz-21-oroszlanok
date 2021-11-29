@@ -37,7 +37,7 @@
      	<div>Név: ${takingSubject.student.name}</div>
         <div>Tantárgy: ${takingSubject.subject.subjectName}</div>
         <div>Évfolyam: ${takingSubject.schoolYear.startSchoolYear}/${takingSubject.schoolYear.endSchoolYear}</div>
-        <div>Osztály: ${studentClass}</div>
+        <div>Osztály: ${studentClass.schoolClass.className}</div>
         <div class="col-sm-2 my-3">
             <form:form  action="/teacherMarkAdd" method="POST">
            		<input type="number" name="markScore" min="1" max="5" value="3">
