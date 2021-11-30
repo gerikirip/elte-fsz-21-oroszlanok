@@ -41,7 +41,7 @@
 
      <div class="container">
         <div class="col-sm-2 my-3">
-            <form:form  action="/studentPage" method="POST">
+            <form:form  action="/studentPage/studentAbsent" method="POST">
                 <select class="form-control form-control-sm" name="selectYear">
                 <c:forEach items="${schoolYears}" var="schoolYear">
                 	<option value="${schoolYear.schoolYearId}" ${selectedYear == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
@@ -54,47 +54,26 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Hónap:</th>
-                <th scope="col">Szeptember</th>
-                <th scope="col">Október</th>
-                <th scope="col">November</th>
-                <th scope="col">December</th>
-                <th scope="col">I. félév</th>
-                <th scope="col">Január</th>
-                <th scope="col">Február</th>
-                <th scope="col">Március</th>
-                <th scope="col">Április</th>
-                <th scope="col">Május</th>
-                <th scope="col">Június</th>
-                <th scope="col">II. félév</th>
+                <th scope="col">Hiányzás:</th>
+                <th scope="col">Igazol/Igazolatlan:</th>
             </tr>
             </thead>
-            <tbody>
-            <c:forEach items="${takingSubjects}" var="takingSubject">
-         
-            <tr>
-                <th scope="row">${takingSubject.subject.subjectName}</th>
- 				<c:forEach var = "i" begin = "9" end = "12">
- 				    <td>
-					<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
-					<c:forEach items="${monthmarks}" var="mark">
-						${mark.markScore}
+	            <tbody>
+	                <c:forEach items="${takingSubjects}" var="takingSubject">
+	                <c:forEach items="${takingSubject.absents}" var="absent">
+	               	<tr>
+	 				    <td>${absent.cleanDate} - ${absent.endTime}</td>
+	 				    <c:if test="${!absent.authAbsent}"> 
+	 				    	<td>Igazolatlan</td>
+	 				    </c:if>
+	 				    <c:if test="${absent.authAbsent}"> 
+	 				    	<td>Igazolt</td>
+	 				    </c:if>						
+					</tr>
 					</c:forEach>
-					</td>
-				</c:forEach>
-				<td></td>
-				<c:forEach var = "i" begin = "1" end = "6">
- 				    <td>
-					<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
-					<c:forEach items="${monthmarks}" var="mark">
-						${mark.markScore}
 					</c:forEach>
-					</td>
-				</c:forEach> 
-			</tr>
-            </c:forEach>
-            </tbody>
-        </table>
+	            </tbody>
+            </table>
     </div>
   </body>
 </html>
