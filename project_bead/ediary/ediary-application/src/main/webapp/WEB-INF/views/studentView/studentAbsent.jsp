@@ -25,9 +25,7 @@
             <li class="nav-item active">
               <a href="/studentPage"><input type="button" class="btn btn-outline-light" value="Napló"></a>
             </li>
-            <li class="nav-item">
-              	<a href="/studentPage/studentData"><input type="button" class="btn btn-outline-light" value="Adatok"></a>
-            </li>
+           
             <li class="nav-item">
               <form:form action="/logout" method="POST">
               	<input type="submit" class="btn btn-outline-light" value="Kijelentkezés">
