@@ -22,13 +22,7 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a href="/studentPage"><input type="button" class="btn btn-outline-light" value="Napló"></a>
-            </li>
-            <li class="nav-item">
-              	<a href="/studentPage/studentData"><input type="button" class="btn btn-outline-light" value="Adatok"></a>
-            </li>
-            <li class="nav-item">
+            
               <a href="/studentPage/studentAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzások"></a>
             </li>
             <li class="nav-item">
