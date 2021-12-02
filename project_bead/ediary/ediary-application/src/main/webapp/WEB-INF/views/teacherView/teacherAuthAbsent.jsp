@@ -50,6 +50,7 @@
             <tr>
                 <th scope="col">Név:</th>
                 <th scope="col">Hiányzás:</th>
+                <th scope="col">Igazol/Igazolatlan:</th>
             </tr>
             </thead>
 	            <tbody>
@@ -57,7 +58,13 @@
 	                <c:forEach items="${takingSubject.absents}" var="absent">
 	               	<tr>
 	 				    <td>${takingSubject.student.name}</td>
-	 				    <td>${absent.cleanDate} - ${absent.endTime}</td>					
+	 				    <td>${absent.cleanDate} - ${absent.endTime}</td>
+	 				    <c:if test="${!absent.authAbsent}"> 
+	 				    	<td>Igazolatlan</td>
+	 				    </c:if>
+	 				    <c:if test="${absent.authAbsent}"> 
+	 				    	<td>Igazolt</td>
+	 				    </c:if>						
 					</tr>
 					</c:forEach>
 					</c:forEach>
