@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="hu">
   <head>
@@ -22,7 +23,7 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            
+            <li>
               <a href="/studentPage/studentAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzások"></a>
             </li>
             <li class="nav-item">
@@ -69,7 +70,7 @@
             <tbody>
             <c:forEach items="${takingSubjects}" var="takingSubject">
          
-            <tr>
+            <tr class='${takingSubject.suYear ? "bg-success" : takingSubject.suYear == false ? "bg-danger" : ""}'>
                 <th scope="row">${takingSubject.subject.subjectName}</th>
  				<c:forEach var = "i" begin = "9" end = "12">
  				    <td>
@@ -79,7 +80,7 @@
 					</c:forEach>
 					</td>
 				</c:forEach>
-				<td></td>
+				<td><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${takingSubject.firstAvg}"/></td>
 				<c:forEach var = "i" begin = "1" end = "6">
  				    <td>
 					<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
@@ -87,7 +88,8 @@
 						${mark.markScore}
 					</c:forEach>
 					</td>
-				</c:forEach> 
+				</c:forEach>
+				<td><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${takingSubject.secondAvg}"/></td>
 			</tr>
             </c:forEach>
             </tbody>
