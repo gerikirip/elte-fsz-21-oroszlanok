@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="hu">
   <head>
@@ -24,6 +25,12 @@
             <li class="nav-item active">
               <a href="/teacherPage"><input type="button" class="btn btn-outline-light" value="Napló"></a>
             </li>
+            <c:if test="${inClasses.size() != 0}">
+	            <li class="nav-item active">
+	              <a href="/teacherAuthAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzás Igazolása"></a>
+	            </li>
+            </c:if>
+            
             <li class="nav-item">
                <form:form action="/logout" method="POST">
               	<input type="submit" class="btn btn-outline-light" value="Kijelentkezés">
@@ -34,45 +41,17 @@
       </nav>
 
      <div class="container">
-        
-        <form:form  action="/teacherAuthAbsent" method="POST">
-           Tanév:
-          	<select class="form-control form-control-sm" name="selectYear">
-               <c:forEach items="${schoolYears}" var="schoolYear">
-                	<option value="${schoolYear.schoolYearId}" ${absentChoosenYear == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
-               </c:forEach>
-            </select>
-            <input type="submit" class="btn btn-primary" value="Kiválasztása">
-         </form:form>
-        
-         <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Név:</th>
-                <th scope="col">Hiányzás:</th>
-                <th scope="col">Igazol/Igazolatlan:</th>
-                <th></th>
-            </tr>
-            </thead>
-	            <tbody>
-	                <c:forEach items="${takingSubjects}" var="takingSubject">
-	                <c:forEach items="${takingSubject.absents}" var="absent">
-	               	<tr>
-	 				    <td>${takingSubject.student.name}</td>
-	 				    <td>${absent.cleanDate} - ${absent.endTime}</td>
-	 				    <c:if test="${!absent.authAbsent}"> 
-	 				    	<td>Igazolatlan</td>
-	 				    	<td><a href="/certifyAbsence/${absent.id}">Igazol</a></td>	
-	 				    </c:if>
-	 				    <c:if test="${absent.authAbsent}"> 
-	 				    	<td>Igazolt</td>
-	 				    </c:if>
-	 				  					
-					</tr>
-					</c:forEach>
-					</c:forEach>
-	            </tbody>
-            </table>
+        <div class="my-3">
+        	     
+	 <div class="container">
+	  <div class="my-3">
+			<div class="alert alert-warning" role="alert">
+				<h4 class="alert-heading">Hozzáférés megtagadva!</h4>
+					<p>A betölteni kívánt oldalhoz nincsen hozzáférésed!</p>
+				</div>
+			</div>
+		</div>
+      </div>
     </div>
   </body>
 </html>

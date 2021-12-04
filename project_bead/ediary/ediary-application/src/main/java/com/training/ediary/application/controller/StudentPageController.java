@@ -14,7 +14,6 @@ import com.training.ediary.application.service.SchoolYearService;
 import com.training.ediary.application.service.TakingSubjectService;
 import com.training.ediary.application.transform.view.SchoolYearViewTransform;
 import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
-import com.training.ediary.domain.TakingSubject;
 
 
 

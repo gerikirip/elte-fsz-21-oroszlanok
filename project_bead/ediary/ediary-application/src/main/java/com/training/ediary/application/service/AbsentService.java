@@ -38,6 +38,10 @@ public class AbsentService {
 	@Autowired
 	private AbsentRepo absentRepo;
 	
+	public Optional<Absent> selectedId(int id){
+		return absentRepo.findById(id);
+	}
+	
 	public String addAbsentView(Model model, int takingSubjectId, HttpServletRequest request) {
 		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(takingSubjectId);
 		Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
@@ -52,7 +56,7 @@ public class AbsentService {
 				return "teacherView/teacherAbsent";
 			}
 		}
-		return "deniedPage";
+		return "teacherView/teacherDeniedPage";
 	}
 	
 	public String addAbsent(AbsentAddRequest absentAddRequest, HttpServletRequest request){
@@ -72,6 +76,14 @@ public class AbsentService {
 				}
 			}
 		}
-		return "deniedPage";
+		return "teacherView/teacherDeniedPage";
+	}
+	
+	public void certifyAbsence(int id) {
+		Optional<Absent> absent = selectedId(id);
+		if(absent.isPresent()) {
+			absent.get().setAuthAbsent(true);
+		}
+		absentRepo.save(absent.get());
 	}
 }

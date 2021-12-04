@@ -1,7 +1,6 @@
 package com.training.ediary.application.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,8 +25,6 @@ import com.training.ediary.application.transform.view.SubjectViewTransform;
 import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
 import com.training.ediary.application.webdomain.request.TakingSubjectFormRequest;
 import com.training.ediary.application.webdomain.view.TakingSubjectView;
-import com.training.ediary.domain.TakingSubject;
-import com.training.ediary.domain.repository.TakingSubjectRepo;
 
 
 @Controller

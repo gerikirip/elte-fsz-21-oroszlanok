@@ -12,6 +12,10 @@ import com.training.ediary.domain.EdiaryUser;
 
 public class EdiaryUserDetails implements UserDetails{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2092581074906888006L;
 	private EdiaryUser user;
 	
 	public EdiaryUserDetails(EdiaryUser user){

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.training.ediary.application.webdomain.view.TakingSubjectView;
 import com.training.ediary.domain.Admin;
 import com.training.ediary.domain.InClass;
 import com.training.ediary.domain.SchoolClass;
@@ -58,6 +59,7 @@ public class TestDataGenerator {
 	
 	@Autowired
 	private CreateData createData;
+	
 	
 	@Transactional
     public void createTestData(){
@@ -166,42 +168,31 @@ public class TestDataGenerator {
         Teaching teachingMath2_2122 = createData.createTeaching(teacher2, subject_Math, schoolYear2021_2022);
         teachingRepo.save(teachingMath2_2122);
 
-        
-        TakingSubject takingSubject2019_2020Math = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student1, teacher1, false, 0);
-        takingSubject2019_2020Math.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2019_2020Math = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student1, teacher1, false);
         takingSubjectRepo.save(takingSubject2019_2020Math);
         
-        TakingSubject takingSubject2019_2020Math_kata = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student2, teacher2, true, 4);
-        takingSubject2019_2020Math_kata.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2019_2020Math_kata = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student2, teacher2, true);
         takingSubjectRepo.save(takingSubject2019_2020Math_kata);
         
-        TakingSubject takingSubject2020_2021Math_kata = createData.createTakingSubject(schoolYear2020_2021, subject_Math, student2, teacher2, true, 5);
-        takingSubject2020_2021Math_kata.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2020_2021Math_kata = createData.createTakingSubject(schoolYear2020_2021, subject_Math, student2, teacher2, true);
         takingSubjectRepo.save(takingSubject2020_2021Math_kata);
         
-        TakingSubject takingSubject2021_2022Math_kata = createData.createTakingSubject(schoolYear2021_2022, subject_Math, student2, teacher2, null, 0);
-        takingSubject2021_2022Math_kata.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2021_2022Math_kata = createData.createTakingSubject(schoolYear2021_2022, subject_Math, student2, teacher2, null);
         takingSubjectRepo.save(takingSubject2021_2022Math_kata);
         
-        TakingSubject takingSubject2021_2022Math_Peti = createData.createTakingSubject(schoolYear2021_2022, subject_Math, student1, teacher2, null, 0);
-        takingSubject2021_2022Math_Peti.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2021_2022Math_Peti = createData.createTakingSubject(schoolYear2021_2022, subject_Math, student1, teacher2, null);
         takingSubjectRepo.save(takingSubject2021_2022Math_Peti);
         
-        TakingSubject takingSubject2019_2020Literature = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student1, teacher2, true, 4);
-        takingSubject2019_2020Literature.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2019_2020Literature = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student1, teacher2, true);
         takingSubjectRepo.save(takingSubject2019_2020Literature);
         
-        TakingSubject takingSubject2019_2020Lit_kata = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student2, teacher2, true, 4);   
-        takingSubject2019_2020Lit_kata.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2019_2020Lit_kata = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student2, teacher2, true);   
         takingSubjectRepo.save(takingSubject2019_2020Lit_kata);
         
-        TakingSubject takingSubject2019_2020Lit_emil = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student3, teacher2, true, 3);
-        takingSubject2019_2020Lit_emil.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2019_2020Lit_emil = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student3, teacher2, true);
         takingSubjectRepo.save(takingSubject2019_2020Lit_emil);
         
-        
-        TakingSubject takingSubject2020_2021 = createData.createTakingSubject(schoolYear2020_2021, subject_Math, student1, teacher2, true, 0);
-        takingSubject2020_2021.setMarks(createData.createRandomMark(1, 5));
+        TakingSubject takingSubject2020_2021 = createData.createTakingSubject(schoolYear2020_2021, subject_Math, student1, teacher2, true);
         takingSubjectRepo.save(takingSubject2020_2021);
     }
 }

@@ -1,20 +1,14 @@
 package com.training.ediary.application.controller;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.training.ediary.application.service.AbsentService;
 import com.training.ediary.application.service.InClassService;
@@ -25,7 +19,6 @@ import com.training.ediary.application.transform.view.SchoolYearViewTransform;
 import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
 import com.training.ediary.application.webdomain.request.AbsentAddRequest;
 import com.training.ediary.application.webdomain.request.GetInClassRequest;
-import com.training.ediary.application.webdomain.request.TakingSubjectFormRequest;
 
 @Controller
 public class AbsentController {
@@ -81,5 +74,11 @@ public class AbsentController {
 		model.addAttribute("takingSubjects", takingSubjectViewTransform.takingSubjectListTransform(takingSubjectService.findBySchoolYearAndTeacher(request, inClassRequest.getSelectYear())));
 		
 		return "teacherView/teacherAuthAbsent";
+	}
+	
+	@GetMapping("/certifyAbsence/{id}")
+	public String teacherSuccessYear(@PathVariable(name="id") int id) {
+		absentService.certifyAbsence(id);
+		return "redirect:/teacherAuthAbsent";
 	}
 }

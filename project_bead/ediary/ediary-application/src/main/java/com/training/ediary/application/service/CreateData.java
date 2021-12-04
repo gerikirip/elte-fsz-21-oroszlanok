@@ -10,6 +10,7 @@ import java.util.Random;
 import org.hibernate.validator.constraints.ISBN;
 import org.springframework.stereotype.Component;
 
+import com.training.ediary.application.webdomain.view.MarkView;
 import com.training.ediary.domain.Absent;
 import com.training.ediary.domain.Admin;
 import com.training.ediary.domain.InClass;
@@ -77,7 +78,7 @@ public class CreateData {
 		return schoolClass;
 	}
 	
-	public TakingSubject createTakingSubject(SchoolYear schoolYear, Subject subject, Student student, Teacher teacher, Boolean suYear, int endMark)
+	public TakingSubject createTakingSubject(SchoolYear schoolYear, Subject subject, Student student, Teacher teacher, Boolean suYear)
 	{
 		TakingSubject takingSubject = new TakingSubject();
 		takingSubject.setSchoolYear(schoolYear);
@@ -85,8 +86,11 @@ public class CreateData {
 		takingSubject.setStudent(student);
 		takingSubject.setTeacher(teacher);
 		takingSubject.setSuYear(suYear);
+		takingSubject.setMarks(createRandomMark(1,5));
 		if(suYear != null && suYear)
-		{ takingSubject.setEndMark(endMark); }
+		{ 
+			takingSubject.setEndMark(endAvg(takingSubject.getMarks())); 
+		}
 		return takingSubject;
 	}
 	
@@ -140,5 +144,21 @@ public class CreateData {
 			marks.add(createMark(randomMark3, i));
 		}
 		return marks;
+	}
+	
+	public int endAvg(List<Mark> marks) {
+		double avg = 0.0;
+		double markCount = 0.0;
+		for(Mark mark : marks) {
+				avg += mark.getMarkScore();
+				markCount++;
+		}
+		
+		if(markCount == 0)
+		{
+			return 0;
+		}
+		
+		return (int)Math.round(avg / markCount);
 	}
 }

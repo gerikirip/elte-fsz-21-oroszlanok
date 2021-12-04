@@ -73,7 +73,7 @@ public class MarkService {
 			model.addAttribute("studentClass",inClassViewTransform.inClassTransform(studentClass));
 			return "teacherView/teacherMarkChange";
 		}
-		return "deniedPage";
+		return "teacherView/teacherDeniedPage";
 	}
 	
 	public String markChange(MarkChangeRequest markChangeRequest, HttpServletRequest request)
@@ -96,7 +96,7 @@ public class MarkService {
 					return "redirect:/teacherPage/succesfullchange";
 				}
 			}
-		return "deniedPage";
+		return "teacherView/teacherDeniedPage";
 	}
 	
 	public String markAddView(Model model, int takingSubjectId, HttpServletRequest request) {
@@ -113,7 +113,7 @@ public class MarkService {
 				return "teacherView/teacherMarkAdd";
 			}
 		}
-		return "deniedPage";
+		return "teacherView/teacherDeniedPage";
 	}
 	
 	public String markAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
@@ -133,6 +133,6 @@ public class MarkService {
 				}
 			}
 		}
-		return "deniedPage";
+		return "teacherView/teacherDeniedPage";
 	}
 }

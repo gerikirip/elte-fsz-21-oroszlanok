@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
+import com.training.ediary.application.webdomain.view.TakingSubjectView;
 import com.training.ediary.domain.Mark;
 import com.training.ediary.domain.Student;
 import com.training.ediary.domain.TakingSubject;
@@ -35,6 +37,9 @@ public class TakingSubjectService {
 	
 	@Autowired
 	private MarkService markService;
+	
+	@Autowired
+	private TakingSubjectViewTransform takingSubjectViewTransform;
 	
 	public Optional<TakingSubject> selectedId(int id){
 		return takingSubjectRepo.findById(id);
@@ -87,10 +92,11 @@ public class TakingSubjectService {
 	}
 	
 	public void successOrNotSuccessYear(int id) {
-		Optional<TakingSubject> takingSubject = selectedId(id);
+		Optional<TakingSubject> takingSubject = selectedId(id);		
 		if(takingSubject.isPresent()) {
-			double firstSemesterAvg = takingSubject.get().getFirstAvg();
-			double secondSemesterAvg = takingSubject.get().getSecondAvg();
+			TakingSubjectView takingSubjectView = takingSubjectViewTransform.takingSubjectTransform(takingSubject.get());
+			double firstSemesterAvg = takingSubjectView.getFirstAvg();
+			double secondSemesterAvg = takingSubjectView.getSecondAvg();
 			if(firstSemesterAvg > 2.0 && secondSemesterAvg > 2.0) {
 				takingSubject.get().setSuYear(true);
 				takingSubject.get().setEndMark((int)Math.round(secondSemesterAvg));
