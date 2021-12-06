@@ -42,7 +42,7 @@
             <form:form  action="/studentPage/studentAbsent" method="POST">
                 <select class="form-control form-control-sm" name="selectYear">
                 <c:forEach items="${schoolYears}" var="schoolYear">
-                	<option value="${schoolYear.schoolYearId}" ${selectedYear == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
+                	<option value="${schoolYear.schoolYearId}" ${choosenYearsAbsent == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
                 </c:forEach>
                 </select>
                 <input type="submit" class="btn btn-primary" value="Tanév kiválasztása">

@@ -69,20 +69,20 @@ public class TestDataGenerator {
 		adminRepo.save(admin);
 		
 		
-        Teacher teacher1 = createData.createTeacher("teach@teacher.com", passwordEncoder.encode("123"), "Jani", "Teacher");
-        Teacher teacher2 = createData.createTeacher("feriteach@teacher.com", passwordEncoder.encode("123"), "Feri", "FeriTeacher");
+        Teacher teacher1 = createData.createTeacher("teach@teacher.com", passwordEncoder.encode("123"), "Donka Jani", "Teacher");
+        Teacher teacher2 = createData.createTeacher("feriteach@teacher.com", passwordEncoder.encode("123"), "Bányay Feri", "FeriTeacher");
         Teacher teacher3 = createData.createTeacher("a@a.com", passwordEncoder.encode("123"), "Test", "TestTeacher");
         teacherRepo.save(teacher1);
         teacherRepo.save(teacher2);
         teacherRepo.save(teacher3);
         
-        Student student1 = createData.createStudent("student@student.com", passwordEncoder.encode("123"), "Peti", "Stud");
+        Student student1 = createData.createStudent("student@student.com", passwordEncoder.encode("123"), "Sultés Peti", "Stud");
         studentRepo.save(student1);
         
-        Student student2 = createData.createStudent("katastudent@student.com", passwordEncoder.encode("123"), "Kata", "KataStud");
+        Student student2 = createData.createStudent("katastudent@student.com", passwordEncoder.encode("123"), "Szél Kata", "KataStud");
         studentRepo.save(student2);
         
-        Student student3 = createData.createStudent("emilstudent@student.com", passwordEncoder.encode("123"), "Emil", "EmilStud");
+        Student student3 = createData.createStudent("emilstudent@student.com", passwordEncoder.encode("123"), "Ságy Emil", "EmilStud");
         studentRepo.save(student3);
         
         Subject subject_Math = createData.createSubject("Matek");

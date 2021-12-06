@@ -22,9 +22,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a href="/teacherPage"><input type="button" class="btn btn-outline-light" value="Napló"></a>
-            </li>
             <c:if test="${inClasses.size() != 0}">
 	            <li class="nav-item active">
 	              <a href="/teacherAuthAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzás Igazolása"></a>
@@ -70,7 +67,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Hónap:</th>
+                <th scope="col">Tanuló neve:</th>
                 <th scope="col">Szeptember</th>
                 <th scope="col">Október</th>
                 <th scope="col">November</th>

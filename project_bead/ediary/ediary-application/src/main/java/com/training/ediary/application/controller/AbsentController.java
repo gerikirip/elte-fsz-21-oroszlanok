@@ -56,7 +56,12 @@ public class AbsentController {
 	
 	@GetMapping("/teacherAuthAbsent")
 	public String authAbsentView(Model model, HttpServletRequest request, HttpSession session){
-		Integer absentChoosenYear = (Integer)session.getAttribute("choosenYears");
+		Integer absentChoosenYear = (Integer)session.getAttribute("absentChoosenYear");
+		
+		if(absentChoosenYear != null) {
+			model.addAttribute("takingSubjects", takingSubjectViewTransform.takingSubjectListTransform(takingSubjectService.findBySchoolYearAndTeacher(request, absentChoosenYear)));
+		}
+		
 		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		model.addAttribute("absentChoosenYear", absentChoosenYear);
 
@@ -68,7 +73,7 @@ public class AbsentController {
 	public String authAbsentList(Model model, HttpServletRequest request, HttpSession session, GetInClassRequest inClassRequest) {
 		
 		session.setAttribute("absentChoosenYear", inClassRequest.getSelectYear());
-		
+		model.addAttribute("absentChoosenYear",(int)session.getAttribute("absentChoosenYear"));	
 		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
 		model.addAttribute("inClasses", inClassViewTransform.inClassListTransform(inClassService.getInClassesByHeadTeacherBySchoolYear(request, inClassRequest.getSelectYear())));
 		model.addAttribute("takingSubjects", takingSubjectViewTransform.takingSubjectListTransform(takingSubjectService.findBySchoolYearAndTeacher(request, inClassRequest.getSelectYear())));

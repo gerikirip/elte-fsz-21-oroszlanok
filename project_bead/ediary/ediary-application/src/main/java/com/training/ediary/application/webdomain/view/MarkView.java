@@ -3,6 +3,11 @@ package com.training.ediary.application.webdomain.view;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import com.sun.istack.NotNull;
 import com.training.ediary.domain.MarkHistory;
 
 public class MarkView {

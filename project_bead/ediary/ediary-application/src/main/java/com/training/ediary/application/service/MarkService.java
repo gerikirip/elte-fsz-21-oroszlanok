@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -86,14 +87,17 @@ public class MarkService {
 				{
 					MarkHistory markHistory = new MarkHistory();
 					Mark changeMark = selectedMark(markChangeRequest.getMarkId()).get();
-					markHistory.setPreChangedMark(changeMark.getMarkScore());
-					changeMark.setMarkScore(markChangeRequest.getMarkScore());
-					markHistory.setPostChangedMark(changeMark.getMarkScore());
-					markHistory.setChangeDate(new Date());
-					markHistory = markHistoryRepo.save(markHistory);
-					changeMark.getMarkHistories().add(markHistory);
-					markRepo.save(changeMark);
-					return "redirect:/teacherPage/succesfullchange";
+					if(markChangeRequest.getMarkScore() <= 5 && markChangeRequest.getMarkScore() >= 1) {
+						markHistory.setPreChangedMark(changeMark.getMarkScore());
+						changeMark.setMarkScore(markChangeRequest.getMarkScore());
+						markHistory.setPostChangedMark(changeMark.getMarkScore());
+						markHistory.setChangeDate(new Date());
+						markHistory = markHistoryRepo.save(markHistory);
+						changeMark.getMarkHistories().add(markHistory);
+						markRepo.save(changeMark);
+						return "redirect:/teacherPage/succesfullchange";
+					}
+					return "teacherView/teacherError";
 				}
 			}
 		return "teacherView/teacherDeniedPage";
@@ -127,9 +131,12 @@ public class MarkService {
 				if(ediaryService.isCurrentSemester(takingSubject.getSchoolYear()))
 				{
 					Mark mark = markTransformer.transorfMarkAddRequest(markAddRequest);
-					takingSubject.getMarks().add(mark);
-					markRepo.save(mark);
-					return "redirect:/teacherPage/succesfullchange";
+					if(mark.getMarkScore() <= 5 && mark.getMarkScore() >= 1) {
+						takingSubject.getMarks().add(mark);
+						markRepo.save(mark);
+						return "redirect:/teacherPage/succesfullchange";
+					}
+					return "teacherView/teacherError";
 				}
 			}
 		}

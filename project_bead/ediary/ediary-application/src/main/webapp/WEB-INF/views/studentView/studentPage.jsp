@@ -42,7 +42,7 @@
             <form:form  action="/studentPage" method="POST">
                 <select class="form-control form-control-sm" name="selectYear">
                 <c:forEach items="${schoolYears}" var="schoolYear">
-                	<option value="${schoolYear.schoolYearId}" ${selectedYear == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
+                	<option value="${schoolYear.schoolYearId}" ${choosenYears == schoolYear.schoolYearId ? 'selected="selected"' : ''}>${schoolYear.startSchoolYear}/${schoolYear.endSchoolYear}</option>
                 </c:forEach>
                 </select>
                 <input type="submit" class="btn btn-primary" value="Tanév kiválasztása">
@@ -52,7 +52,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Hónap:</th>
+                <th scope="col">Tárgy neve:</th>
                 <th scope="col">Szeptember</th>
                 <th scope="col">Október</th>
                 <th scope="col">November</th>
