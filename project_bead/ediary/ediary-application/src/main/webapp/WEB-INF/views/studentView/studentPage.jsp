@@ -12,7 +12,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>StudentPage</title>
+    <title>Diák oldal</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -65,6 +65,7 @@
                 <th scope="col">Május</th>
                 <th scope="col">Június</th>
                 <th scope="col">II. félév</th>
+                <th scope="col">Lezárt jegy</th>  
             </tr>
             </thead>
             <tbody>
@@ -90,6 +91,9 @@
 					</td>
 				</c:forEach>
 				<td><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${takingSubject.secondAvg}"/></td>
+				<c:if test="${takingSubject.suYear != null}"> 
+           			<td class="">${takingSubject.endMark}</td>
+				</c:if>
 			</tr>
             </c:forEach>
             </tbody>
