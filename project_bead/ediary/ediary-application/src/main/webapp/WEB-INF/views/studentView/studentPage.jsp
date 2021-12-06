@@ -76,8 +76,8 @@
  				    <td>
 					<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 					<c:forEach items="${monthmarks}" var="mark">
-						${mark.markScore}
-					</c:forEach>
+                            <a href="/studentChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
+                        </c:forEach>
 					</td>
 				</c:forEach>
 				<td><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${takingSubject.firstAvg}"/></td>
@@ -85,8 +85,8 @@
  				    <td>
 					<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 					<c:forEach items="${monthmarks}" var="mark">
-						${mark.markScore}
-					</c:forEach>
+                            <a href="/studentChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
+                        </c:forEach>
 					</td>
 				</c:forEach>
 				<td><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${takingSubject.secondAvg}"/></td>
