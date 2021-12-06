@@ -19,6 +19,7 @@ import com.training.ediary.application.webdomain.request.MarkChangeRequest;
 import com.training.ediary.domain.InClass;
 import com.training.ediary.domain.Mark;
 import com.training.ediary.domain.MarkHistory;
+import com.training.ediary.domain.Student;
 import com.training.ediary.domain.TakingSubject;
 import com.training.ediary.domain.Teacher;
 import com.training.ediary.domain.repository.InClassRepo;
@@ -62,7 +63,7 @@ public class MarkService {
 		return markRepo.findById(id);
 	}
 	
-	public String markChangeView(Model model, int markId, HttpServletRequest request) {
+	public String teacherMarkChangeView(Model model, int markId, HttpServletRequest request) {
 		TakingSubject takingSubject = takingSubjectService.takingSubjectIdByMarkId(markId);
 		Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 		InClass studentClass = inClassRepo.findByStudentAndSchoolYear(takingSubject.getStudent(),takingSubject.getSchoolYear());
@@ -77,7 +78,19 @@ public class MarkService {
 		return "teacherView/teacherDeniedPage";
 	}
 	
-	public String markChange(MarkChangeRequest markChangeRequest, HttpServletRequest request)
+	public String studentMarkChangeView(Model model, int markId, HttpServletRequest request) {
+		TakingSubject takingSubject = takingSubjectService.takingSubjectIdByMarkId(markId);
+		Student loginStudent = (Student)ediaryUserService.loginUser(request);
+		if(loginStudent.getEdiaryUserId() == takingSubject.getStudent().getEdiaryUserId()) 
+		{
+			model.addAttribute("mark", markViewTransform.markTransform(selectedMark(markId).get()));
+			model.addAttribute("takingSubject",takingSubjectViewTransform.takingSubjectTransform(takingSubject));
+			return "studentView/studentChange";
+		}
+		return "studentView/studentDeniedPage";
+	} 
+	
+	public String teacherMarkChange(MarkChangeRequest markChangeRequest, HttpServletRequest request)
 	{
 			TakingSubject takingSubject = takingSubjectService.takingSubjectIdByMarkId(markChangeRequest.getMarkId());
 			Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
@@ -103,7 +116,7 @@ public class MarkService {
 		return "teacherView/teacherDeniedPage";
 	}
 	
-	public String markAddView(Model model, int takingSubjectId, HttpServletRequest request) {
+	public String teacherMarkAddView(Model model, int takingSubjectId, HttpServletRequest request) {
 		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(takingSubjectId);
 		Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 		if(selectedId.isPresent())
@@ -120,7 +133,7 @@ public class MarkService {
 		return "teacherView/teacherDeniedPage";
 	}
 	
-	public String markAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
+	public String teacherMarkAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
 		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(markAddRequest.getTakingSubjectId());
 		Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 		if(selectedId.isPresent())

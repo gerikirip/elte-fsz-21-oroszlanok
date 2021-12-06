@@ -23,24 +23,28 @@ public class MarkController {
 	@Autowired
 	private MarkService markService;
 	
+	@GetMapping("/studentChange/{id}")
+	public String studentMarkView(Model model, @PathVariable(name="id") int markId, HttpServletRequest request) {		
+		return markService.studentMarkChangeView(model, markId, request);
+	}
 	
 	@GetMapping("/teacherMarkChange/{id}")
-	public String markView(Model model, @PathVariable(name="id") int markId, HttpServletRequest request) {		
-		return markService.markChangeView(model, markId, request);
+	public String teacherMarkView(Model model, @PathVariable(name="id") int markId, HttpServletRequest request) {		
+		return markService.teacherMarkChangeView(model, markId, request);
 	}
 	
 	@PostMapping("/teacherMarkChange")
-	public String markChange(MarkChangeRequest markChangeRequest, HttpServletRequest request){
-		return markService.markChange(markChangeRequest, request);
+	public String teacherMarkChange(MarkChangeRequest markChangeRequest, HttpServletRequest request){
+		return markService.teacherMarkChange(markChangeRequest, request);
 	}
 	
 	@GetMapping("/teacherMarkAdd/{id}")
-	public String markAddView(Model model, @PathVariable(name="id") int takingSubjectId, HttpServletRequest request) {
-		return markService.markAddView(model, takingSubjectId, request);
+	public String teacherMarkAddView(Model model, @PathVariable(name="id") int takingSubjectId, HttpServletRequest request) {
+		return markService.teacherMarkAddView(model, takingSubjectId, request);
 	}
 	
 	@PostMapping("/teacherMarkAdd")
-	public String markAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
-		return markService.markAdd(markAddRequest, request);
+	public String teacherMarkAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
+		return markService.teacherMarkAdd(markAddRequest, request);
 	}
 }

@@ -65,7 +65,6 @@
                 <th scope="col">Május</th>
                 <th scope="col">Június</th>
                 <th scope="col">II. félév</th>
-		    <th scope="col">Lezárt jegy</th>  
             </tr>
             </thead>
             <tbody>
@@ -91,10 +90,7 @@
 					</td>
 				</c:forEach>
 				<td><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${takingSubject.secondAvg}"/></td>
-			<c:if test="${takingSubject.suYear != null}"> 
-						<td class="">${takingSubject.endMark}</td><td></td><td></td><td></td> 
-					</c:if>
-		    </tr>
+			</tr>
             </c:forEach>
             </tbody>
         </table>

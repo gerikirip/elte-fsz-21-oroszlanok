@@ -11,11 +11,11 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>teacherPage</title>
+    <title>Diák oldal</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/teacherPage">Enapló - Tanár</a>
+        <a class="navbar-brand" href="/teacherPage">Enapló - Diák</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,10 +35,8 @@
 
      <div class="container">
         <div class="col-sm-2 my-3">
-        	<div>Név: ${takingSubject.student.name}</div>
-        	<div>Tantárgy: ${takingSubject.subject.subjectName}</div>
         	<div>Évfolyam: ${takingSubject.schoolYear.startSchoolYear}/${takingSubject.schoolYear.endSchoolYear}</div>
-        	<div>Osztály:  ${studentClass.schoolClass.className}</div>
+        	<div>Tantárgy: ${takingSubject.subject.subjectName}</div>
         </div>
         
         <div>A jegy ekkor került be: ${mark.shortDate}</div>
