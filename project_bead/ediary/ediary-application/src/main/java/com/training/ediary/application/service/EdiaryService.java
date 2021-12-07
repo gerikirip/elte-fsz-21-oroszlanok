@@ -43,7 +43,7 @@ public class EdiaryService {
 		return year;
 	}
 	
-	public boolean outDate(LocalDateTime date, int dayNumber/*, Time starTime */) {
+	public boolean outDate(LocalDateTime date, int dayNumber) {
 		
 		int dayMax = dayNumber * 86400000;
 		long currentTime = System.currentTimeMillis();

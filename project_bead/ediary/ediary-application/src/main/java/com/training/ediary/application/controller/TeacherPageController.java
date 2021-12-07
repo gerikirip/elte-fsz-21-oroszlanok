@@ -110,6 +110,27 @@ public class TeacherPageController {
 		return "teacherView/teacherPage";
 	}
 	
+	@GetMapping("/teacherPage/notsuccesfullchange")
+	public String teacherPageWithNotSuccessAbsent(Model model, HttpServletRequest request, HttpSession session) {
+		Integer choosenSubject = (Integer)session.getAttribute("choosenSubject");
+		Integer choosenYears = (Integer)session.getAttribute("choosenYears");
+		Integer choosenClass = (Integer)session.getAttribute("choosenClass");
+		if(choosenSubject != null && choosenYears != null && choosenClass != null)
+		{
+			List<TakingSubjectView> takingSubjectFiltered = takingSubjectViewTransform.
+					takingSubjectListTransform(takingSubjectService.
+							takingSubjectFiltered(request, choosenSubject, choosenYears, choosenClass));				
+			model.addAttribute("takingSubjects",takingSubjectFiltered);
+			model.addAttribute("isCurrentSemester", ediaryService.isCurrentSemester(schoolYearService.selectedYear(choosenYears).get()));
+		}
+		
+		model.addAttribute("alert","Sikertelen mentés: csak 3 napig visszamenõleg lehet hiányzást beírni!");	
+		model.addAttribute("teacherSubjects",subjectViewTransform.subjectListTransform(subjectService.teacherSubjectList(request)));
+		model.addAttribute("schoolYears", schoolYearViewTransform.schoolClassListTransform(schoolYearService.schoolYears()));
+		model.addAttribute("schoolClasses", schoolClassViewTransform.schoolClassListTransform(schoolClassService.schoolClasses()));
+		return "teacherView/teacherPage";
+	}
+	
 	@PostMapping("/teacherPage")
 	public String teacherPageWithMarks(TakingSubjectFormRequest takingSubjectRequest,  HttpSession session,  Model model, HttpServletRequest request) {	
 		

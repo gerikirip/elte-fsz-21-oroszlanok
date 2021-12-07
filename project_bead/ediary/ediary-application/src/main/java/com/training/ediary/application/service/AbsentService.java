@@ -74,6 +74,10 @@ public class AbsentService {
 					absentRepo.save(absent);
 					return "redirect:/teacherPage/succesfullchange";
 				}
+				else
+				{
+					return "redirect:/teacherPage/notsuccesfullchange";
+				}
 			}
 		}
 		return "teacherView/teacherDeniedPage";
