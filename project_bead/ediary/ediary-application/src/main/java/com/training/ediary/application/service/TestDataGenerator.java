@@ -165,10 +165,16 @@ public class TestDataGenerator {
         Teaching teachingBio = createData.createTeaching(teacher2, subject_Bio, schoolYear2020_2021);
         teachingRepo.save(teachingBio);
         
+        Teaching teachingBio_2122 = createData.createTeaching(teacher1, subject_Bio, schoolYear2021_2022);
+        teachingRepo.save(teachingBio_2122);
+        
         Teaching teachingMath2_2122 = createData.createTeaching(teacher2, subject_Math, schoolYear2021_2022);
         teachingRepo.save(teachingMath2_2122);
+        
+        Teaching teachingLit_2122 = createData.createTeaching(teacher2, subject_Literature, schoolYear2021_2022);
+        teachingRepo.save(teachingLit_2122);
 
-        TakingSubject takingSubject2019_2020Math = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student1, teacher1, false);
+        TakingSubject takingSubject2019_2020Math = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student1, teacher1, true);
         takingSubjectRepo.save(takingSubject2019_2020Math);
         
         TakingSubject takingSubject2019_2020Math_kata = createData.createTakingSubject(schoolYear2019_2020, subject_Math, student2, teacher2, true);
@@ -182,6 +188,18 @@ public class TestDataGenerator {
         
         TakingSubject takingSubject2021_2022Math_Peti = createData.createTakingSubject(schoolYear2021_2022, subject_Math, student1, teacher2, null);
         takingSubjectRepo.save(takingSubject2021_2022Math_Peti);
+        
+        TakingSubject takingSubject2021_2022Lit_kata = createData.createTakingSubject(schoolYear2021_2022, subject_Literature, student2, teacher2, null);
+        takingSubjectRepo.save(takingSubject2021_2022Lit_kata);
+        
+        TakingSubject takingSubject2021_2022Lit_Peti = createData.createTakingSubject(schoolYear2021_2022, subject_Literature, student1, teacher2, null);
+        takingSubjectRepo.save(takingSubject2021_2022Lit_Peti);
+        
+        TakingSubject takingSubject2021_2022Bio_kata = createData.createTakingSubject(schoolYear2021_2022, subject_Bio, student2, teacher1, null);
+        takingSubjectRepo.save(takingSubject2021_2022Bio_kata);
+        
+        TakingSubject takingSubject2021_2022Bio_Peti = createData.createTakingSubject(schoolYear2021_2022, subject_Bio, student1, teacher1, null);
+        takingSubjectRepo.save(takingSubject2021_2022Bio_Peti);
         
         TakingSubject takingSubject2019_2020Literature = createData.createTakingSubject(schoolYear2019_2020, subject_Literature, student1, teacher2, true);
         takingSubjectRepo.save(takingSubject2019_2020Literature);
