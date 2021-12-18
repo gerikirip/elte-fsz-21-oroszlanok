@@ -24,7 +24,7 @@
           <ul class="navbar-nav mr-auto">
             <c:if test="${inClasses.size() != 0}">
 	            <li class="nav-item active">
-	              <a href="/teacherAuthAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzás Igazolása"></a>
+	              <a href="/teacherPage/teacherAuthAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzás Igazolása"></a>
 	            </li>
             </c:if>
             
@@ -92,7 +92,7 @@
 	 				    <td>
 						<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 						<c:forEach items="${monthmarks}" var="mark">
-							<a href="/teacherMarkChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
+							<a href="/teacherPage/teacherMarkChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
 						</c:forEach>
 						</td>
 					</c:forEach>
@@ -101,7 +101,7 @@
 	 				    <td>
 						<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 						<c:forEach items="${monthmarks}" var="mark">
-							<a href="/teacherMarkChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
+							<a href="/teacherPage/teacherMarkChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
 						</c:forEach>
 						</td>
 					</c:forEach>
@@ -109,13 +109,13 @@
 					<c:if test="${isCurrentSemester && takingSubject.suYear == null}">
 					<td></td> 
 					<td>
-						<a href="/teacherMarkAdd/${takingSubject.takingSubjectId}">Jegy beírása</a>
+						<a href="/teacherPage/teacherMarkAdd/${takingSubject.takingSubjectId}">Jegy beírása</a>
 					</td>
 					<td>
-						<a href="/teacherAbsent/${takingSubject.takingSubjectId}">Hiányzás beírása</a>
+						<a href="/teacherPage/teacherAbsent/${takingSubject.takingSubjectId}">Hiányzás beírása</a>
 					</td>
 					<td>
-						<a href="/teacherSuccessYear/${takingSubject.takingSubjectId}">Lezárás</a>
+						<a href="/teacherPage/teacherSuccessYear/${takingSubject.takingSubjectId}">Lezárás</a>
 					</td> 
 					</c:if>
 					<c:if test="${takingSubject.suYear != null}"> 

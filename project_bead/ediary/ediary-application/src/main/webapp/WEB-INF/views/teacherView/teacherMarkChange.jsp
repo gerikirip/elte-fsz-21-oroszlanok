@@ -40,7 +40,7 @@
         	<div>Évfolyam: ${takingSubject.schoolYear.startSchoolYear}/${takingSubject.schoolYear.endSchoolYear}</div>
         	<div>Osztály:  ${studentClass.schoolClass.className}</div>
         	<c:if test="${isCurrentSemester && takingSubject.suYear == null}"> 
-	            <form:form  action="/teacherMarkChange" method="POST">
+	            <form:form  action="/teacherPage/teacherMarkChange" method="POST">
 	           		<input type="number" name="markScore" min="1" max="5" value="${mark.markScore}">
 	           		<input type="hidden" name="markId" value="${mark.markId}">
 	           		<input type="submit" class="btn btn-primary" value="Módosít">

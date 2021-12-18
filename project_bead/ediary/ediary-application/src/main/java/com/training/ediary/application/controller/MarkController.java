@@ -23,27 +23,27 @@ public class MarkController {
 	@Autowired
 	private MarkService markService;
 	
-	@GetMapping("/studentChange/{id}")
+	@GetMapping("/studentPage/studentChange/{id}")
 	public String studentMarkView(Model model, @PathVariable(name="id") int markId, HttpServletRequest request) {		
 		return markService.studentMarkChangeView(model, markId, request);
 	}
 	
-	@GetMapping("/teacherMarkChange/{id}")
+	@GetMapping("/teacherPage/teacherMarkChange/{id}")
 	public String teacherMarkView(Model model, @PathVariable(name="id") int markId, HttpServletRequest request) {		
 		return markService.teacherMarkChangeView(model, markId, request);
 	}
 	
-	@PostMapping("/teacherMarkChange")
+	@PostMapping("/teacherPage/teacherMarkChange")
 	public String teacherMarkChange(MarkChangeRequest markChangeRequest, HttpServletRequest request){
 		return markService.teacherMarkChange(markChangeRequest, request);
 	}
 	
-	@GetMapping("/teacherMarkAdd/{id}")
+	@GetMapping("/teacherPage/teacherMarkAdd/{id}")
 	public String teacherMarkAddView(Model model, @PathVariable(name="id") int takingSubjectId, HttpServletRequest request) {
 		return markService.teacherMarkAddView(model, takingSubjectId, request);
 	}
 	
-	@PostMapping("/teacherMarkAdd")
+	@PostMapping("/teacherPage/teacherMarkAdd")
 	public String teacherMarkAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
 		return markService.teacherMarkAdd(markAddRequest, request);
 	}

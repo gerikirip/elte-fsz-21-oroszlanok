@@ -157,7 +157,7 @@ public class TeacherPageController {
 		return "teacherView/teacherPage";
 	}
 	
-	@GetMapping("/teacherSuccessYear/{id}")
+	@GetMapping("/teacherPage/teacherSuccessYear/{id}")
 	public String teacherSuccessYear(@PathVariable(name="id") int id) {
 		takingSubjectService.successOrNotSuccessYear(id);
 		return "redirect:/teacherPage";

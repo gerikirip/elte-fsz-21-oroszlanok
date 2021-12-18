@@ -40,7 +40,7 @@
         	<div>Évfolyam: ${takingSubject.schoolYear.startSchoolYear}/${takingSubject.schoolYear.endSchoolYear}</div>
         	<div>Osztály: ${studentClass}</div>
 			
-			<form:form  action="/teacherAbsent" method="POST">
+			<form:form  action="/teacherPage/teacherAbsent" method="POST">
             Hiányzott óra dátuma:
             <input type="datetime-local" name="absentDate"> - <input type="time" name="absentEndTime">
             <input type="hidden" name="takingSubjectId" value="${takingSubject.takingSubjectId}">

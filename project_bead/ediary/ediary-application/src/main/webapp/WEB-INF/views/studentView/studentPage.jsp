@@ -77,7 +77,7 @@
  				    <td>
 					<c:set var="monthmarks" value="${takingSubject.marks.stream().filter(p -> p.getMonth() == i).toList()}"/>
 					<c:forEach items="${monthmarks}" var="mark">
-                            <a href="/studentChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
+                            <a href="/studentPage/studentChange/${mark.markId}" class="link-dark">${mark.markScore}</a>
                         </c:forEach>
 					</td>
 				</c:forEach>

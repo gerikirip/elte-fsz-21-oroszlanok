@@ -35,7 +35,7 @@
 
      <div class="container">
         
-        <form:form  action="/teacherAuthAbsent" method="POST">
+        <form:form  action="/teacherPage/teacherAuthAbsent" method="POST">
            Tanév:
           	<select class="form-control form-control-sm" name="selectYear">
                <c:forEach items="${schoolYears}" var="schoolYear">
@@ -64,7 +64,7 @@
 	 				    <td>${absent.cleanDate} - ${absent.endTime}</td>
 	 				    <c:if test="${!absent.authAbsent}"> 
 	 				    	<td>Igazolatlan</td>
-	 				    	<td><a href="/certifyAbsence/${absent.id}">Igazol</a></td>	
+	 				    	<td><a href="/teacherPage/certifyAbsence/${absent.id}">Igazol</a></td>	
 	 				    </c:if>
 	 				    <c:if test="${absent.authAbsent}"> 
 	 				    	<td>Igazolt</td>

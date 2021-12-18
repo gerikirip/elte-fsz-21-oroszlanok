@@ -27,7 +27,7 @@
             </li>
             <c:if test="${inClasses.size() != 0}">
 	            <li class="nav-item active">
-	              <a href="/teacherAuthAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzás Igazolása"></a>
+	              <a href="/teacherPage/teacherAuthAbsent"><input type="button" class="btn btn-outline-light" value="Hiányzás Igazolása"></a>
 	            </li>
             </c:if>
             

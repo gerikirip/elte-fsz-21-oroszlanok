@@ -44,17 +44,17 @@ public class AbsentController {
 	@Autowired
 	TakingSubjectService takingSubjectService;
 	
-	@GetMapping("/teacherAbsent/{id}")
+	@GetMapping("/teacherPage/teacherAbsent/{id}")
 	public String addAbsentView(Model model, @PathVariable(name="id") int takingSubjectId, HttpServletRequest request) {
 		return absentService.addAbsentView(model, takingSubjectId, request);
 	}
 	
-	@PostMapping("/teacherAbsent")
+	@PostMapping("/teacherPage/teacherAbsent")
 	public String markAdd(AbsentAddRequest absentAddRequest, HttpServletRequest request){
 		return absentService.addAbsent(absentAddRequest, request);
 	}
 	
-	@GetMapping("/teacherAuthAbsent")
+	@GetMapping("/teacherPage/teacherAuthAbsent")
 	public String authAbsentView(Model model, HttpServletRequest request, HttpSession session){
 		Integer absentChoosenYear = (Integer)session.getAttribute("absentChoosenYear");
 		
@@ -69,7 +69,7 @@ public class AbsentController {
 		return "teacherView/teacherAuthAbsent";
 	}
 	
-	@PostMapping("/teacherAuthAbsent")
+	@PostMapping("/teacherPage/teacherAuthAbsent")
 	public String authAbsentList(Model model, HttpServletRequest request, HttpSession session, GetInClassRequest inClassRequest) {
 		
 		session.setAttribute("absentChoosenYear", inClassRequest.getSelectYear());
@@ -81,9 +81,9 @@ public class AbsentController {
 		return "teacherView/teacherAuthAbsent";
 	}
 	
-	@GetMapping("/certifyAbsence/{id}")
+	@GetMapping("/teacherPage/certifyAbsence/{id}")
 	public String teacherSuccessYear(@PathVariable(name="id") int id) {
 		absentService.certifyAbsence(id);
-		return "redirect:/teacherAuthAbsent";
+		return "redirect:/teacherPage/teacherAuthAbsent";
 	}
 }
