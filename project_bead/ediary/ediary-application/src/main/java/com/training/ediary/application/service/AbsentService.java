@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.training.ediary.application.transform.AbsentTransform;
 import com.training.ediary.application.webdomain.request.AbsentAddRequest;
@@ -59,7 +60,7 @@ public class AbsentService {
 		return "teacherView/teacherDeniedPage";
 	}
 	
-	public String addAbsent(AbsentAddRequest absentAddRequest, HttpServletRequest request){
+	public String addAbsent(AbsentAddRequest absentAddRequest, HttpServletRequest request, RedirectAttributes redirectAttributes){
 		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(absentAddRequest.getTakingSubjectId());
 		Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 		if(selectedId.isPresent())
@@ -72,11 +73,13 @@ public class AbsentService {
 					Absent absent = absentTransform.transformAbsentAddRequest(absentAddRequest);
 					takingSubject.getAbsents().add(absent);
 					absentRepo.save(absent);
-					return "redirect:/teacherPage/succesfullchange";
+					redirectAttributes.addFlashAttribute("alert", "Sikeres hiányzás beírás!");
+					return "redirect:/teacherPage";
 				}
 				else
 				{
-					return "redirect:/teacherPage/notsuccesfullchange";
+					redirectAttributes.addFlashAttribute("alert", "Sikertelen hiányzás beírás: csak 3 napig visszamenõleg lehet hiányzást beírni!");
+					return "redirect:/teacherPage";
 				}
 			}
 		}

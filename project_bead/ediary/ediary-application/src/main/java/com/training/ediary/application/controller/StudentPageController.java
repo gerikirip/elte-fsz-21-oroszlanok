@@ -1,8 +1,6 @@
 package com.training.ediary.application.controller;
 
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,15 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.training.ediary.application.service.SchoolYearService;
 import com.training.ediary.application.service.TakingSubjectService;
 import com.training.ediary.application.transform.view.SchoolYearViewTransform;
 import com.training.ediary.application.transform.view.TakingSubjectViewTransform;
 import com.training.ediary.application.webdomain.request.SchoolYearFormRequest;
-import com.training.ediary.application.webdomain.view.SchoolYearView;
-import com.training.ediary.application.webdomain.view.TakingSubjectView;
 
 
 

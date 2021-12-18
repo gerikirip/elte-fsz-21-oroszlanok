@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.training.ediary.application.service.MarkService;
 import com.training.ediary.application.webdomain.request.MarkAddRequest;
@@ -34,8 +35,8 @@ public class MarkController {
 	}
 	
 	@PostMapping("/teacherPage/teacherMarkChange")
-	public String teacherMarkChange(MarkChangeRequest markChangeRequest, HttpServletRequest request){
-		return markService.teacherMarkChange(markChangeRequest, request);
+	public String teacherMarkChange(MarkChangeRequest markChangeRequest, HttpServletRequest request, RedirectAttributes redirectAttributes){
+		return markService.teacherMarkChange(markChangeRequest, request, redirectAttributes);
 	}
 	
 	@GetMapping("/teacherPage/teacherMarkAdd/{id}")
@@ -44,7 +45,7 @@ public class MarkController {
 	}
 	
 	@PostMapping("/teacherPage/teacherMarkAdd")
-	public String teacherMarkAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
-		return markService.teacherMarkAdd(markAddRequest, request);
+	public String teacherMarkAdd(MarkAddRequest markAddRequest, HttpServletRequest request, RedirectAttributes redirectAttributes){
+		return markService.teacherMarkAdd(markAddRequest, request, redirectAttributes);
 	}
 }

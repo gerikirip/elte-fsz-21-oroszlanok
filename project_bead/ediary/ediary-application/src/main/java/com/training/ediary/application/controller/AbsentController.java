@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.training.ediary.application.service.AbsentService;
 import com.training.ediary.application.service.InClassService;
@@ -50,8 +51,8 @@ public class AbsentController {
 	}
 	
 	@PostMapping("/teacherPage/teacherAbsent")
-	public String markAdd(AbsentAddRequest absentAddRequest, HttpServletRequest request){
-		return absentService.addAbsent(absentAddRequest, request);
+	public String markAdd(AbsentAddRequest absentAddRequest, HttpServletRequest request, RedirectAttributes redirectAttributes){
+		return absentService.addAbsent(absentAddRequest, request, redirectAttributes);
 	}
 	
 	@GetMapping("/teacherPage/teacherAuthAbsent")

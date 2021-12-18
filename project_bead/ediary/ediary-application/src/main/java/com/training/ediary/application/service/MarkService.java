@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.training.ediary.application.transform.MarkTransform;
 import com.training.ediary.application.transform.view.InClassViewTransform;
@@ -90,7 +90,7 @@ public class MarkService {
 		return "studentView/studentDeniedPage";
 	} 
 	
-	public String teacherMarkChange(MarkChangeRequest markChangeRequest, HttpServletRequest request)
+	public String teacherMarkChange(MarkChangeRequest markChangeRequest, HttpServletRequest request, RedirectAttributes redirectAttributes)
 	{
 			TakingSubject takingSubject = takingSubjectService.takingSubjectIdByMarkId(markChangeRequest.getMarkId());
 			Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
@@ -108,7 +108,8 @@ public class MarkService {
 						markHistory = markHistoryRepo.save(markHistory);
 						changeMark.getMarkHistories().add(markHistory);
 						markRepo.save(changeMark);
-						return "redirect:/teacherPage/succesfullchange";
+						redirectAttributes.addFlashAttribute("alert", "Sikeres változtatás!");
+						return "redirect:/teacherPage";
 					}
 					return "teacherView/teacherError";
 				}
@@ -133,7 +134,7 @@ public class MarkService {
 		return "teacherView/teacherDeniedPage";
 	}
 	
-	public String teacherMarkAdd(MarkAddRequest markAddRequest, HttpServletRequest request){
+	public String teacherMarkAdd(MarkAddRequest markAddRequest, HttpServletRequest request, RedirectAttributes redirectAttributes){
 		Optional<TakingSubject> selectedId = takingSubjectService.selectedId(markAddRequest.getTakingSubjectId());
 		Teacher loginTeacher = (Teacher)ediaryUserService.loginUser(request);
 		if(selectedId.isPresent())
@@ -147,7 +148,8 @@ public class MarkService {
 					if(mark.getMarkScore() <= 5 && mark.getMarkScore() >= 1) {
 						takingSubject.getMarks().add(mark);
 						markRepo.save(mark);
-						return "redirect:/teacherPage/succesfullchange";
+						redirectAttributes.addFlashAttribute("alert", "Sikeres mentés!");
+						return "redirect:/teacherPage";
 					}
 					return "teacherView/teacherError";
 				}
