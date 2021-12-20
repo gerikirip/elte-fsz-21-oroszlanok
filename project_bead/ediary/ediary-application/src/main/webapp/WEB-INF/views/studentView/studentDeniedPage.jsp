@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a href="/teacherPage"><input type="button" class="btn btn-outline-light" value="Napló"></a>
+              <a href="/studentPage"><input type="button" class="btn btn-outline-light" value="Napló"></a>
             </li>
             
             
